@@ -22,6 +22,15 @@
 //   isStudent   → true or false
 //
 // Log all four to the console.
+const fullName = "Joshua Rucker"; //name is const due to it being my name lol
+const age = 38; // const due to age is locked and should not change
+let city = "Zachary"; // I put let due to city can be changed also my eyes saw task two where the reassigned city task
+let isStudent = true; // I declared let because value can be changed
+
+console.log(fullName);
+console.log(age);
+console.log(city);
+console.log(isStudent);
 
 // ----------------------------------------------------------
 // TASK 2 — Update what can change
