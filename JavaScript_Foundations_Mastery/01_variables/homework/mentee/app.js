@@ -38,18 +38,27 @@ console.log(isStudent);
 // Reassign city to a different city.
 // Reassign isStudent to the opposite value.
 // Log both after reassigning.
+city = "Baton Rouge";
+isStudent = false;
+console.log(city);
+console.log(isStudent);
 //
 // Then try to reassign fullName.
 // Read the error, then comment that line out.
+//fullName = "Joshua Rucker";
 
 // ----------------------------------------------------------
 // TASK 3 — Undefined in the wild
 // ----------------------------------------------------------
 // Declare a let called favoriteMovie — do NOT assign a value.
 // Log it. Write what you see as a comment.
+let favoriteMovie;
+console.log(favoriteMovie);
 //
 // Now assign it a movie title.
 // Log it again.
+favoriteMovie = "Lord Of The Rings 2";
+console.log(favoriteMovie);
 
 // ----------------------------------------------------------
 // TASK 4 — Build a product listing
