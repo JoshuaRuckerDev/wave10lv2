@@ -53,7 +53,7 @@ console.log(isStudent);
 // Declare a let called favoriteMovie — do NOT assign a value.
 // Log it. Write what you see as a comment.
 let favoriteMovie;
-console.log(favoriteMovie);
+console.log(favoriteMovie);// undefined
 //
 // Now assign it a movie title.
 // Log it again.
