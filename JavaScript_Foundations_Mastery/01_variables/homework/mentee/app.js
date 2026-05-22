@@ -70,21 +70,33 @@ console.log(favoriteMovie);
 //   productBrand → the brand name
 //   productPrice → a price as a number
 //   inStock      → true
+const productName = "Brain Juice";
+const productBrand = "Wealth Health";
+const productPrice = 8;
+const inStock = true;
 //
 // Log each variable on its own line.
 // Then log: productName + " by " + productBrand + " — $" + productPrice
-
+console.log(productName);
+console.log(productBrand);
+console.log(productPrice);
+console.log(inStock);
+console.log(productName + " by " + productBrand + " -$" + productPrice);
 // ----------------------------------------------------------
 // TASK 5 — Stock status update
 // ----------------------------------------------------------
 // Reassign inStock to false.
 // Log: "In stock: " + inStock
+inStock = false;
+
+console.log("In stock: " + inStock);
 //
 // Try to reassign productName.
 // Read the error and comment the line out.
 // Why did this fail but inStock worked?
 // Write your answer as a comment.
-
+productName = "Noggin Juice";//productName  is const and can't be cant reassign
+// inStock worked due to vs code recognizes states true and false while the other is a const of a string in this example Brain Juice
 // ----------------------------------------------------------
 // TASK 6 — Fix the bad names
 // ----------------------------------------------------------
