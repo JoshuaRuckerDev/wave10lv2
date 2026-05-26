@@ -96,6 +96,7 @@ console.log("In stock: " + inStock);
 // Why did this fail but inStock worked?
 // Write your answer as a comment.
 productName = "Noggin Juice";//productName  is const and can't be cant reassign
+
 // inStock worked due to vs code recognizes states true and false while the other is a const of a string in this example Brain Juice
 // ----------------------------------------------------------
 // TASK 6 — Fix the bad names
