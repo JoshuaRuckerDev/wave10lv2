@@ -46,6 +46,9 @@ console.log(isStudent);
 // Then try to reassign fullName.
 // Read the error, then comment that line out.
 //fullName = "Joshua Rucker";
+//
+// Then try to reassign fullName.
+// Read the error, then comment that line out.
 
 // ----------------------------------------------------------
 // TASK 3 — Undefined in the wild
@@ -59,6 +62,9 @@ console.log(favoriteMovie);// undefined
 // Log it again.
 favoriteMovie = "Lord Of The Rings 2";
 console.log(favoriteMovie);
+//
+// Now assign it a movie title.
+// Log it again.
 
 // ----------------------------------------------------------
 // TASK 4 — Build a product listing
@@ -73,7 +79,7 @@ console.log(favoriteMovie);
 const productName = "Brain Juice";
 const productBrand = "Wealth Health";
 const productPrice = 8;
-const inStock = true;
+let inStock = true;  // let because stock status changes later
 //
 // Log each variable on its own line.
 // Then log: productName + " by " + productBrand + " — $" + productPrice
@@ -82,6 +88,10 @@ console.log(productBrand);
 console.log(productPrice);
 console.log(inStock);
 console.log(productName + " by " + productBrand + " -$" + productPrice);
+//
+// Log each variable on its own line.
+// Then log: productName + " by " + productBrand + " — $" + productPrice
+
 // ----------------------------------------------------------
 // TASK 5 — Stock status update
 // ----------------------------------------------------------
@@ -95,9 +105,10 @@ console.log("In stock: " + inStock);
 // Read the error and comment the line out.
 // Why did this fail but inStock worked?
 // Write your answer as a comment.
-productName = "Noggin Juice";//productName  is const and can't be cant reassign
+// productName = "Noggin Juice";//productName  is const and can't be cant reassign
 
-// inStock worked due to vs code recognizes states true and false while the other is a const of a string in this example Brain Juice
+// productName failed because it was declared with const, so it cannot be reassigned. inStock worked due to being declared with Let
+
 // ----------------------------------------------------------
 // TASK 6 — Fix the bad names
 // ----------------------------------------------------------
@@ -108,6 +119,16 @@ productName = "Noggin Juice";//productName  is const and can't be cant reassign
 //   my score      → fix it
 //   X             → rename to something descriptive, then declare it
 //   GaMeLeVeL     → fix the casing
+
+const twoPlayer = "Jermaine";
+const myScore = 88;
+let gameTitle = "Rex Racer";
+const gamerLevel = "Vet";
+
+console.log(twoPlayer);
+console.log(myScore);
+console.log(gameTitle);
+console.log(gamerLevel);
 
 // ----------------------------------------------------------
 // TASK 7 — Two-step declaration
@@ -123,6 +144,14 @@ productName = "Noggin Juice";//productName  is const and can't be cant reassign
 //
 // You should see three console lines: undefined → 500 → 750
 
+let highScore;
+console.log(highScore);
+
+highScore = 500;
+console.log(highScore);
+
+highScore = 750;
+console.log(highScore);
 // ----------------------------------------------------------
 // TASK 8 — Connect the variables
 // ----------------------------------------------------------
@@ -133,6 +162,12 @@ productName = "Noggin Juice";//productName  is const and can't be cant reassign
 //
 // Log: appName + " v" + version + " — built by " + authorName
 // Expected format: "TaskMaster v3 — built by [your name]"
+
+const appName = "TaskMaster";
+const version = 3;
+const authorName = "Joshua Rucker";
+
+console.log(appName + "v" + version + "- built by " + authorName);
 
 // ----------------------------------------------------------
 // ⭐ STRETCH GOAL
@@ -146,3 +181,12 @@ productName = "Noggin Juice";//productName  is const and can't be cant reassign
 // Then reassign currentYear... wait, can you? Why not?
 // Write the answer as a comment.
 // What keyword would you need if currentYear could change?
+
+const startYear = 2020;
+const currentYear = 2025;
+let yearsRunning = currentYear - startYear;
+
+console.log(appName + " has been running for " + yearsRunning + " years.");
+
+// cant reassign currentYear due to it being declared a const
+// if you changed currentYear to let it can be changed 
