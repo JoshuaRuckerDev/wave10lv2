@@ -2,7 +2,6 @@
 // 🐛  DATA TYPES — LIVE CLASS  |  DEBUG TASKS
 // ============================================================
 
-
 // ----------------------------------------------------------
 // 🟢 DEBUG 1 — Easy
 // ----------------------------------------------------------
@@ -13,14 +12,14 @@
 const price = "19.99"; // came from a form input
 const taxRate = 0.08;
 
-const tax   = price * taxRate;
-const total = price + tax;
-console.log("Total: $" + total); // wrong!
+const priceNum = parseFloat(price);
+const tax = priceNum * taxRate;
+const total = priceNum + tax;
+console.log(`Total: $${total.toFixed(2)}`); // wrong!
 
 // What's wrong ↓
 
 // Your fix ↓
-
 
 // ----------------------------------------------------------
 // 🟡 DEBUG 2 — Medium
@@ -30,22 +29,21 @@ console.log("Total: $" + total); // wrong!
 // but doesn't always work correctly. What's wrong?
 
 function checkScore(score) {
-  if (score === null) {
+  if (score == null) {
     console.log("No score yet");
   } else {
     console.log(`Score: ${score}`);
   }
 }
 
-checkScore(null);      // ✅ logs "No score yet"
+checkScore(null); // ✅ logs "No score yet"
 checkScore(undefined); // ❌ logs "Score: undefined" — wrong
-checkScore(0);         // should log "Score: 0"
+checkScore(0); // should log "Score: 0"
 
 // What's wrong ↓
 
 // Your fix — make it handle both null and undefined
 //            while still correctly showing score of 0 ↓
-
 
 // ----------------------------------------------------------
 // 🔴 DEBUG 3 — Hard
@@ -55,15 +53,22 @@ checkScore(0);         // should log "Score: 0"
 // One produces NaN silently. One produces the wrong year.
 
 function getBirthYear(ageInput) {
-  const age       = parseInt(ageInput);
+  const age = parseFloat(ageInput);
+
+  if (isNaN(age)) {
+    return "Invalid age input";
+  }
+
   const birthYear = 2025 - age;
-  return `Born: ${birthYear}`;
+  const cleanBirthYear = birthYear.toFixed(0);
+  return `Born: ${cleanBirthYear}`;
 }
 
-console.log(getBirthYear("28"));        // correct
-console.log(getBirthYear("twenty"));    // ❌ Bug 1: NaN — no guard
+console.log(getBirthYear("28")); // correct
+console.log(getBirthYear("twenty")); // ❌ Bug 1: NaN — no guard
 console.log(getBirthYear("28 years")); // ❌ Bug 2: parseInt("28 years") = ?
-                                        // — is this actually wrong?
+console.log(getBirthYear("28.5888 years"));
+// — is this actually wrong?
 
 // Bug 1 ↓
 

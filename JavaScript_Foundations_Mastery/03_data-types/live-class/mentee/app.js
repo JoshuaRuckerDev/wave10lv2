@@ -186,7 +186,7 @@ console.log("\n--- Task 2: Template Literals ---");
 //    Log it.
 //
 // c) Use .includes("@") to check if it looks like an email.
-//    Log: `Valid email format: ${result}` LEFT OFF
+//    Log: `Valid email format: ${result}`
 //
 // d) Use .split("@") to get the username and domain separately.
 //    const [emailUser, emailDomain] = cleanEmail.split("@");
@@ -197,10 +197,19 @@ console.log("\n--- Task 2: Template Literals ---");
 //    Log: `Domain extension: ${ext}`
 
 const trimmedEmail = user.email.trim();
-const cleanEmail = trimmedEmail.toLocaleLowerCase();
+const cleanEmail = trimmedEmail.toLowerCase();
 
 console.log(trimmedEmail);
 console.log(cleanEmail);
+
+console.log(`valid Email format: ${cleanEmail.includes("@")}`);
+
+const [emailUser, emailDomain] = cleanEmail.split("@");
+console.log(emailUser);
+console.log(emailDomain);
+
+const ext = emailDomain.slice(emailDomain.lastIndexOf("."));
+console.log(`Domain extension: ${ext}`);
 
 console.log("\n--- Task 3: String Methods ---");
 // your code here
@@ -215,14 +224,37 @@ console.log("\n--- Task 3: String Methods ---");
 //    Use .charAt(0).toUpperCase() + .slice(1).toLowerCase()
 //    Use a template literal to combine: `${formattedFirst} ${formattedLast}`
 //    Call it with user.firstName and user.lastName. Log the result.
+
+function formatName(firstName, lastName) {
+  const formattedFirst =
+    firstName.charAt(0).toUpperCase() + firstName.slice(1).toLowerCase();
+  const formattedLast =
+    lastName.charAt(0).toUpperCase() + lastName.slice(1).toLowerCase();
+  return `${formattedFirst} ${formattedLast}`;
+}
+
+console.log(formatName(user.firstName, user.lastName));
+
 //
 // b) Use .slice() to get the user's initials:
 //    const initials = `${firstName[0].toUpperCase()}${lastName[0].toUpperCase()}`;
 //    Log the initials.
+
+const initials = `${firstName[0].toUpperCase()}${lastName[0].toUpperCase()}`;
+console.log(initials.slice(0));
+
+// const initial = `${user.firstName.slice(0, 1).toLocaleUpperCase()} ${user.lastName.slice(0, 1).toLocaleUpperCase()}`;
+// console.log(initials)
+
 //
 // c) Use .length to check if a username is valid (3-20 chars):
 //    const username = "alexdev";
 //    Log: `"${username}" length: ${username.length} — valid: ${result}`
+
+const username = "alexdev";
+const isValid = username.length >= 3 && username.length <= 20;
+
+console.log(`${username} Length: ${username.length} - valid: ${isValid}`);
 
 console.log("\n--- Task 4: Formatting Names ---");
 // your code here
@@ -256,6 +288,12 @@ console.log("\n--- Task 4: Formatting Names ---");
 // c) "10" * 2     → what do you get?
 // d) true + 1     → what do you get? (true coerces to 1)
 // e) false + "!"  → what do you get?
+
+console.log("10" + 5, typeof ("10" + 5));
+console.log("10" - 5, typeof ("10" - 5));
+console.log("10" * 2, typeof ("10" * 2));
+console.log(true + 1, typeof (true + 1));
+console.log(false + "!", typeof (false + "!"));
 //
 // For each: log the value AND use typeof to check the result type.
 // Write a comment explaining WHY each one works the way it does.
