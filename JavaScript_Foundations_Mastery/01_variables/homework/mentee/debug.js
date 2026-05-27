@@ -12,13 +12,20 @@
 // ----------------------------------------------------------
 // This throws an error. What's wrong and how do you fix it?
 
-const storeName = "TechMart";
-storeName = "MegaShop";
-console.log(storeName);
+//const storeName = "TechMart";
+//storeName = "MegaShop";
+//console.log(storeName);
 
 // What's wrong ↓
 
+// storeName was declared with const
+
 // Your fix ↓
+
+// change const to let so It can be reassigned
+let storeName = "TechMart";
+storeName = "MegaShop";
+console.log(storeName);
 
 
 // ----------------------------------------------------------
@@ -28,13 +35,17 @@ console.log(storeName);
 
 let item1Price = 19.99;
 let item2Price = 34.99;
-let orderTotal = item1Price + Item2Price;
-console.log("Total: $" + orderTotal);
+//let orderTotal = item1Price + Item2Price;
+//console.log("Total: $" + orderTotal);
 
 // What's wrong ↓
+// in line 38 there is a capital I for second price
+
+
 
 // Your fix ↓
-
+let orderTotal = item1Price + item2Price;
+console.log("Total: $" + orderTotal);
 
 // ----------------------------------------------------------
 // 🔴 DEBUG 3 — Hard
@@ -52,4 +63,9 @@ console.log(productName + " — $" + productPrice);
 
 // What's wrong ↓
 
+// var is no longer used and causes confusion bc it can be redeclared
+
 // Your fix ↓
+const productName = "Headphones";
+const productPrice = 49.99;
+console.log(productName + " — $" + productPrice);
