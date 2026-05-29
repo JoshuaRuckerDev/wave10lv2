@@ -23,6 +23,14 @@
 //
 // Log: gameName + " — Player: " + playerName
 
+const gameName = "Space Blaster";
+const playerName = "Joshua Rucker";
+let playerScore = 0;
+let highScore = 850; // i changed this to let due to highscore may change during gameplay
+const pointsPerKill = 25;
+let livesRemaining = 3;
+
+console.log(gameName + " -Player: " + playerName);
 // ----------------------------------------------------------
 // TASK 2 — Earn points
 // ----------------------------------------------------------
@@ -33,6 +41,11 @@
 // Log: "Earned: " + totalEarned + " points"
 // Log: "Score: " + playerScore
 
+let totalEarned = 6 * pointsPerKill;
+playerScore +=  totalEarned;
+
+console.log("Earned: " + totalEarned + " points");
+console.log("Score: " + playerScore);
 // ----------------------------------------------------------
 // TASK 3 — Take damage
 // ----------------------------------------------------------
@@ -42,6 +55,16 @@
 // Log: "Lives remaining: " + livesRemaining
 // Then log the result of: livesRemaining > 0
 // Write a comment: what does true/false mean in this context?
+
+livesRemaining -= 1;
+livesRemaining -= 1;
+
+
+console.log("Lives remaining: " + livesRemaining);
+console.log(livesRemaining > 0);
+
+// player only has one life left and false means no lives left
+
 
 // ----------------------------------------------------------
 // TASK 4 — Level bonus
@@ -53,6 +76,12 @@
 // Log: "Bonus: " + levelBonus
 // Log: "Score after bonus: " + playerScore
 
+const levelBonus = playerScore * 0.5;
+playerScore += levelBonus;
+
+console.log("Bonus: " + levelBonus);
+console.log("Score after bonus: " + playerScore);
+
 // ----------------------------------------------------------
 // TASK 5 — Check the high score
 // ----------------------------------------------------------
@@ -63,6 +92,14 @@
 //   playerScore === highScore     → prediction:
 //   playerScore >= highScore      → prediction:
 
+//this should be false due to the highscore being 850 and the current score is 225 
+console.log(playerScore > highScore);
+
+//this should return false due to playerScore is 225 and highScore is 850 === means strictly equal
+console.log(playerScore === highScore);
+
+//this will return as false due to playerScore is not greater than or equal to highScore
+console.log(playerScore >= highScore);
 // ----------------------------------------------------------
 // TASK 6 — Update the high score
 // ----------------------------------------------------------
@@ -73,6 +110,11 @@
 // Log: playerScore > highScore   (is it true or false right now?)
 // Then reassign highScore to playerScore.
 // Log: "New high score: " + highScore
+
+console.log(playerScore > highScore); // it is false
+highScore = playerScore;
+
+console.log("New high score: " + highScore);
 
 // ----------------------------------------------------------
 // TASK 7 — Time remaining (modulus practice)
@@ -85,6 +127,12 @@
 // Log: "Time left: " + minutes + " min " + secondsLeft + " sec"
 // ⚠️ minutes will be a decimal — that's expected. We'll fix it in Data Types.
 
+const totalSeconds = 245;
+const minutes = totalSeconds / 60;
+const secondsLeft = totalSeconds % 60;
+
+console.log("Time left: " + minutes + " min " + secondsLeft + " sec");
+
 // ----------------------------------------------------------
 // TASK 8 — Connect the dots summary
 // ----------------------------------------------------------
@@ -96,6 +144,13 @@
 //
 // Then log whether the player beat the original highScore (850):
 // endScore > 850
+
+const startScore = 0;
+const endScore = playerScore;
+const improvement = endScore - startScore;
+
+console.log(playerName + " improved by " + improvement + " points this session.");
+console.log(endScore > 850);
 
 // ----------------------------------------------------------
 // ⭐ STRETCH GOAL — Accuracy Rating
