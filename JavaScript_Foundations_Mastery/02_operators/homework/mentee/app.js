@@ -158,16 +158,30 @@ console.log(endScore > 850);
 // Declare these variables:
 //   const shotsFired = 40
 //   const shotsHit   = 31
+
+const shotsFired = 40;
+const shotsHit = 31;
 //
 // Calculate:
 //   const accuracyDecimal = shotsHit / shotsFired
 //   const accuracyPercent = accuracyDecimal * 100
+
+const accuracyDecimal = shotsHit / shotsFired;
+const accuracyPercent = accuracyDecimal * 100;
 //
 // Log: playerName + " accuracy: " + accuracyPercent + "%"
 //
+
+console.log(playerName + " accuracy: " + accuracyPercent + "%");
 // Then log whether accuracy is above 75%:
 //   accuracyPercent >= 75
+
+console.log(accuracyPercent >= 75);
 //
 // Bonus question (write as a comment):
 // accuracyPercent will have many decimal places. What do you think
+
+// accuracyPercent will have will not have many decimal places
+
+
 // we could use to round it to 2 decimal places? (Hint: coming in Data Types)
