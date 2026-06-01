@@ -56,11 +56,20 @@ const testInputs = {
 // Test with all four username test inputs. Log each result.
 
 function isValidUsername(username) {
-  // your code here
+  console.log(typeof username ==="string");
+  console.log(username.length >= 3);
+  console.log(username.length <= 20);
+  console.log(!username.includes(" "));
+
 }
+
+console.log(isValidUsername("Joshua"));
 
 console.log("--- Task 1: Username Validation ---");
 // your code here
+
+
+
 
 // ----------------------------------------------------------
 // TASK 2 — isValidEmail
