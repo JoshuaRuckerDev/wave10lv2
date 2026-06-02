@@ -8,6 +8,7 @@
 // All output goes to the console.
 // ============================================================
 
+
 console.log("=== DATA VALIDATOR — HOMEWORK ===\n");
 
 // ============================================================
@@ -56,18 +57,53 @@ const testInputs = {
 // Test with all four username test inputs. Log each result.
 
 function isValidUsername(username) {
-  console.log(typeof username ==="string");
-  console.log(username.length >= 3);
-  console.log(username.length <= 20);
-  console.log(!username.includes(" "));
 
-}
+ if (typeof username !== "string") {
+  return {
+    valid: false,
+    message: `Username must be a string`
+  };
+ }
 
-console.log(isValidUsername("Joshua"));
+ const length = username.length;
+
+ if (length < 3) {
+  return {
+    valid: false,
+    message: `Username must be at least 3 characters (got ${length})`
+  };
+ }
+
+ if(length > 20) {
+  return {
+    valid: false,
+    message: `Username must be 20 characters or fewer (got${length})`
+  };
+ }
+
+ if(username.includes(" ")) {
+  return {
+    valid: false,
+    message: `Username cannot contain spaces`
+  };
+ }
+
+  return {
+    valid: true,
+    message: `"${username}" is valid username`
+  };
+ }
+
+
+
+ 
 
 console.log("--- Task 1: Username Validation ---");
 // your code here
-
+console.log(isValidUsername(testInputs.validUsername));
+console.log(isValidUsername(testInputs.shortUsername));
+console.log(isValidUsername(testInputs.longUsername));
+console.log(isValidUsername(testInputs.spacesUsername));
 
 
 
