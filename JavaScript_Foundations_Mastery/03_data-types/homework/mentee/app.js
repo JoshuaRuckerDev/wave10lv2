@@ -55,12 +55,33 @@ const testInputs = {
 //
 // Test with all four username test inputs. Log each result.
 
-function isValidUsername(username) {
-  // your code here
+function isValidUsername(random) {
+  if (typeof random !== "string") {
+    return { valid: false, message: "Username should be a string" };
+  }
+  if (random.length < 3) {
+    return {
+      valid: false,
+      message: `Username must be at least 3 characters long (got ${random.length})`,
+    };
+  }
+  if (random.length > 20) {
+    return {
+      valid: false,
+      message: `Username must be at least 20 characters or fewer (got ${random.length})`,
+    };
+  }
+  if (random.includes(" ")) {
+    return { valid: false, message: "Username cannot have spaces" };
+  }
+  return { valid: true, message: `${random} is a valid username` };
 }
 
 console.log("--- Task 1: Username Validation ---");
-// your code here
+console.log(isValidUsername(testInputs.validUsername));
+console.log(isValidUsername(testInputs.shortUsername));
+console.log(isValidUsername(testInputs.longUsername));
+console.log(isValidUsername(testInputs.spacesUsername));
 
 // ----------------------------------------------------------
 // TASK 2 — isValidEmail
@@ -85,10 +106,39 @@ console.log("--- Task 1: Username Validation ---");
 // Test with validEmail, noAtEmail, noDomainEmail.
 
 function isValidEmail(email) {
-  // your code here
-}
+  if (typeof email !== "string") {
+    return {
+      valid: false,
+      cleanEmail: "",
+      message: "Email should be a string",
+    };
+  }
+  const cleanEmail = email.trim().toLowerCase();
 
+  if (!cleanEmail.includes("@")) {
+    return { valid: false, cleanEmail, message: "Email must have a '@' " };
+  }
+
+  const [localPart, domain] = cleanEmail.split("@");
+
+  if (!localPart || localPart.length === 0) {
+    return {
+      valid: false,
+      cleanEmail,
+      meassage: "Email must include characters before the '@' symbol",
+    };
+  }
+
+  if (!domain || !domain.includes(".")) {
+    return { valid: false, cleanEmail, message: "Email must include a '.' " };
+  }
+
+  return { valid: true, cleanEmail, message: `${cleanEmail} is a valid email` };
+}
 console.log("\n--- Task 2: Email Validation ---");
+console.log(isValidEmail(testInputs.validEmail));
+console.log(isValidEmail(testInputs.noAtEmail));
+console.log(isValidEmail(testInputs.noDomainEmail));
 // your code here
 
 // ----------------------------------------------------------
