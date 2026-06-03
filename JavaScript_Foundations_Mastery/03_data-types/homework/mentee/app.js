@@ -77,7 +77,7 @@ function isValidUsername(username) {
  if(length > 20) {
   return {
     valid: false,
-    message: `Username must be 20 characters or fewer (got${length})`
+    message: `Username must be 20 characters or fewer (got ${length})`
   };
  }
 
@@ -90,7 +90,7 @@ function isValidUsername(username) {
 
   return {
     valid: true,
-    message: `"${username}" is valid username`
+    message: `"${username}" is a valid username`
   };
  }
 
@@ -130,11 +130,49 @@ console.log(isValidUsername(testInputs.spacesUsername));
 // Test with validEmail, noAtEmail, noDomainEmail.
 
 function isValidEmail(email) {
-  // your code here
+  const cleanEmail = email.trim().toLowerCase();
+  const hasAt = cleanEmail.includes("@");
+  const emailParts = cleanEmail.split("@");
+  const hasNameBeforeAt = emailParts[0].length > 0;
+  const hasDotAfterAt = hasAt && emailParts[1].includes(".");
+
+  if (!hasAt) {
+    return {
+      valid: false,
+      cleanEmail: cleanEmail,
+      message: `Email must contain @`
+    };
+  } 
+
+  if(!hasNameBeforeAt) {
+    return {
+      valid: false,
+      cleanEmail: cleanEmail,
+      message: `Email must have characters before @`
+    };
+  }
+
+  if (!hasDotAfterAt) {
+    return {
+      valid: false,
+      cleanEmail: cleanEmail,
+      message: `Email must contain a domain after @`
+    };
+  }
+
+  return {
+    valid: true,
+    cleanEmail: cleanEmail,
+    message: `${cleanEmail} is a valid email`
+  };
+
 }
 
 console.log("\n--- Task 2: Email Validation ---");
-// your code here
+
+console.log(isValidEmail(testInputs.validEmail));
+console.log(isValidEmail(testInputs.noAtEmail));
+console.log(isValidEmail(testInputs.noDomainEmail));
 
 // ----------------------------------------------------------
 // TASK 3 — isValidAge
