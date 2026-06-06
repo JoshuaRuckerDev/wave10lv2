@@ -10,11 +10,12 @@
 //   - Applies a discount when total crosses a threshold
 //   - Counts how many items were added vs skipped
 //
-// CONNECTING THE DOTS — all four lessons at work:
+// CONNECTING THE DOTS — all five lessons at work:
 //   Lesson 1 → variables for prices, totals, counters
 //   Lesson 2 → operators to accumulate and calculate
-//   Lesson 3 → conditionals to check limits and apply discounts
-//   Lesson 4 → loops to process each item automatically
+//   Lesson 3 → data types (strings, numbers, type checking)
+//   Lesson 4 → conditionals to check limits and apply discounts
+//   Lesson 5 → loops to process each item automatically
 //
 // All output goes to the console. No HTML edits needed.
 // ============================================================

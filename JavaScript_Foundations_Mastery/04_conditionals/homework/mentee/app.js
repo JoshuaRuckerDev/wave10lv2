@@ -6,10 +6,11 @@
 // You will calculate a student's score using operators,
 // then determine their grade and status using conditionals.
 //
-// This homework connects all three lessons:
+// This homework connects all four lessons so far:
 //   Lesson 1 → variables to store student data
 //   Lesson 2 → operators to calculate the score
-//   Lesson 3 → conditionals to determine the grade
+//   Lesson 3 → data types (template literals, type conversion)
+//   Lesson 4 → conditionals to determine the grade
 //
 // All output goes to the console. No HTML edits needed.
 // ============================================================
@@ -112,8 +113,7 @@
 //     log studentName + " needs " + Math.abs(pointsNeededToPass) + " more points to pass."
 //
 // 💡 Math.abs() removes the negative sign from a number.
-//    e.g. Math.abs(-7) → 7. We'll cover Math methods in Data Types.
-//    For now just use it as shown above.
+//    e.g. Math.abs(-7) → 7
 
 // ----------------------------------------------------------
 // ⭐ STRETCH GOAL — Subject breakdown
