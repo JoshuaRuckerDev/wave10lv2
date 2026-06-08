@@ -193,11 +193,45 @@ console.log(isValidEmail(testInputs.noDomainEmail));
 // Write a comment: why use Number() instead of parseInt() here?
 
 function isValidAge(ageInput) {
-  // your code here
+  const age = Number(ageInput); 
+    
+  if (isNaN(age)) {
+      return { 
+        valid: false,
+        message: `"${ageInput}" is not a valid number` 
+    };
+  } 
+  
+  if (age < 13) {
+    return {
+      valid: false,
+      message: `Age must be at least 13 (got ${age})`
+    };
+  }
+  
+  if (age > 120) {
+    return {
+      valid: false,
+      message: `Age must be 120 or below (got ${age})`
+    };
+  } 
+  
+  return {
+    valid: true,
+    age: age,
+    message: `Valid age: ${age}`
+  };
 }
 
 console.log("\n--- Task 3: Age Validation ---");
-// your code here
+
+console.log(isValidAge(testInputs.validAge));
+console.log(isValidAge(testInputs.youngAge));
+console.log(isValidAge(testInputs.textAge));
+console.log(isValidAge(testInputs.negativeAge));
+
+// Number() checks that the whole value is a number.
+// parseInt() would stop at the first non-number character and could incorrectly accept something like "28abc" as 28.
 
 // ----------------------------------------------------------
 // TASK 4 — isValidPassword
@@ -230,8 +264,44 @@ console.log("\n--- Task 3: Age Validation ---");
 // Test with all five password test inputs.
 
 function isValidPassword(password) {
-  // your code here
+  const hasUpper = password !== password.toLowerCase();
+  const hasNumber = /[0-9]/.test(password);
+  const hasSpecial = /[!@#$%^&*?_\-]/.test(password);
+
+
+  const errors = [];
+
+  if (password.length < 8) {
+    errors.push("at least 8 characters");
+  }
+  
+  if (!hasNumber) {
+    errors.push("one number")
+  }
+
+  if (!hasUpper) {
+    errors.push("one uppercase letter");
+  }  
+
+  if (!hasSpecial) {
+    errors.push("one special character");
+  }
+
+  if (errors.length > 0) 
+    return {
+      valid: false,
+      message: `Password needs: ${errors.join(", ")}` }
+     
+      else {
+        
+        return {
+          valid: true,
+          message: "Password meets all requirements"
+        }
+
+    }
 }
+
 
 console.log("\n--- Task 4: Password Validation ---");
 // your code here
