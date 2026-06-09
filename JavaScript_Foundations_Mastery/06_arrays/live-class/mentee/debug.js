@@ -5,7 +5,6 @@
 // what was wrong as a comment.
 // ============================================================
 
-
 // ----------------------------------------------------------
 // 🟢 DEBUG 1 — Easy
 // ----------------------------------------------------------
@@ -13,12 +12,11 @@
 // but it logs undefined instead. What's wrong?
 
 const fruits = ["apple", "banana", "cherry"];
-console.log(fruits[3]);
+console.log(fruits[2]);
 
 // What's wrong ↓
 
 // Your fix ↓
-
 
 // ----------------------------------------------------------
 // 🟡 DEBUG 2 — Medium
@@ -28,15 +26,16 @@ console.log(fruits[3]);
 // But wait — should it? Read carefully before answering.
 
 const scores = [88, 72, 95];
-scores = [88, 72, 100];
+scores[2] = 100;
 console.log(scores);
+// scores = [88, 72, 100];
+// console.log(scores);
 
 // What's wrong ↓
 
 // Your fix ↓
 // Hint: there IS a way to update the 95 to 100 without
 // reassigning the whole array. What is it?
-
 
 // ----------------------------------------------------------
 // 🔴 DEBUG 3 — Hard
@@ -47,8 +46,8 @@ console.log(scores);
 
 const playlist = ["Jazz Vibes", "Lo-Fi Study", "Rock Classics", "Pop Hits"];
 
-for (let i = 1; i <= playlist.length; i++) {
-  console.log("Track " + i + ": " + playlist[i]);
+for (let i = 0; i < playlist.length; i++) {
+  console.log("Track " + (i + 1) + ": " + playlist[i]);
 }
 
 // Bug 1 ↓

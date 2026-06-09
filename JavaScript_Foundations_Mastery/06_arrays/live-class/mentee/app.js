@@ -18,7 +18,7 @@
 // Each item in the list is called an ELEMENT.
 // Each element has a position called an INDEX.
 //
-// ⚠️  INDEXES START AT 0 — NOT 1. Always.
+// ⚠️  INDEXES START AT 0 — NOT 1. Always.k
 //
 //   const playlist = ["Song A", "Song B", "Song C"];
 //                         0          1          2
@@ -38,6 +38,13 @@
 //
 // Write a comment next to each log showing which index you used.
 
+const playlist = ["Song 1", "Song 2", "Song 3", "Song 4", "Song 5"];
+
+console.log(playlist);
+console.log(playlist[0]);
+console.log(playlist[2]);
+console.log(playlist[4]);
+
 // TASK 2
 // Declare a const called playlist length using playlist.length
 // Log: "Songs in playlist: " + playlistLength
@@ -46,6 +53,11 @@
 //   playlist[playlist.length - 1]
 //
 // Write a comment: why is the last index always length - 1?
+
+const playlistLength = playlist.length;
+console.log("songs in playlist: " + playlistLength);
+
+console.log(playlist[playlist.length - 1]);
 
 // ----------------------------------------------------------
 // PART 2 — ACCESSING AND UPDATING ELEMENTS
@@ -68,6 +80,11 @@
 //
 // Log the full playlist after both updates to confirm the changes.
 
+playlist[1] = "chickennuggets";
+playlist[3] = "Gumbo";
+
+console.log(playlist);
+
 // TASK 4
 // Declare a const called prices with these values:
 //   [12, 35, 15, 8, 42, 28]
@@ -81,6 +98,15 @@
 //
 // Then update prices[1] from 35 to 30.
 // Log the full prices array to confirm.
+
+const prices = [12, 35, 15, 8, 42, 28];
+
+console.log(`First price: $${prices[0]}`);
+console.log(`Last price: $${prices[prices.length - 1]}`);
+console.log(`Third price: $${prices[2]}`);
+
+prices[1] = 30;
+console.log(prices);
 
 // ----------------------------------------------------------
 // PART 3 — LOOPING THROUGH AN ARRAY
@@ -111,6 +137,10 @@
 //   Track 2: [song title]
 //   ...
 
+for (let i = 0; i < playlist.length; i++) {
+  console.log(`Track ${i + 1}: ${playlist[i]}`);
+}
+
 // TASK 6 — Loop + operator (connect Lessons 2, 4, 5)
 // Using the prices array from Task 4:
 // Declare a let called total with value 0.
@@ -120,6 +150,13 @@
 //
 // This is the Loops homework Task 3 — but now in 4 lines
 // instead of 20. That's what arrays do.
+
+let total = 0;
+for (let i = 0; i < prices.length; i++) {
+  total += prices[i];
+}
+
+console.log(`Cart total: $${total}`);
 
 // ----------------------------------------------------------
 // PART 4 — ARRAY METHODS: push, pop, shift, unshift
@@ -146,6 +183,20 @@
 // Use pop() to remove the last song.
 // Log the playlist after pop.
 // Log: "Length after pop: " + playlist.length
+
+console.log(playlist);
+
+playlist.push("Red Beans");
+console.log(`After Push: ${playlist}`);
+
+console.log(`Length after push: ${playlist.length}`);
+
+const songremoved = playlist.pop();
+console.log(playlist);
+
+console.log(`Length after pop: ${playlist.length}`);
+console.log(`pop() output: ${songremoved}`);
+
 //
 // Write a comment: what does pop() return?
 // Hint: store the result of pop() in a variable and log it.
@@ -162,6 +213,15 @@
 //
 // Write a comment: what is the difference between
 // shift/unshift and push/pop?
+
+console.log(playlist);
+
+playlist.unshift("Jingle Bell");
+console.log(playlist);
+
+const removedFirst = playlist.shift();
+console.log(`Removed song: ${removedFirst}`);
+console.log(playlist);
 
 // ----------------------------------------------------------
 // PART 5 — CONNECT THE DOTS
