@@ -276,7 +276,7 @@ function isValidPassword(password) {
   }
   
   if (!hasNumber) {
-    errors.push("one number")
+    errors.push("one number");
   }
 
   if (!hasUpper) {
@@ -287,24 +287,29 @@ function isValidPassword(password) {
     errors.push("one special character");
   }
 
-  if (errors.length > 0) 
+  if (errors.length > 0) {
     return {
       valid: false,
-      message: `Password needs: ${errors.join(", ")}` }
-     
-      else {
+      message: `Password needs: ${errors.join(", ")}` 
+      };
+
+  }
         
         return {
           valid: true,
           message: "Password meets all requirements"
-        }
-
-    }
-}
-
+        };
+  }
+    
 
 console.log("\n--- Task 4: Password Validation ---");
-// your code here
+
+console.log(isValidPassword(testInputs.validPassword));
+console.log(isValidPassword(testInputs.shortPassword));
+console.log(isValidPassword(testInputs.noUpperPassword));
+console.log(isValidPassword(testInputs.noNumberPassword));
+console.log(isValidPassword(testInputs.noNumberPassword));
+console.log(isValidPassword(testInputs.noSpecialPassword));
 
 // ----------------------------------------------------------
 // TASK 5 — formatValidationResult
