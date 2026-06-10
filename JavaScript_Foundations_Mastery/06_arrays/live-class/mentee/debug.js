@@ -52,6 +52,6 @@ for (let i = 0; i < playlist.length; i++) {
 
 // Bug 1 ↓
 
-// Bug 2 ↓
+// Bug 2 ↓z
 
 // Your fix ↓
