@@ -324,11 +324,14 @@ console.log(isValidPassword(testInputs.noSpecialPassword));
 // Rerun your tests from Tasks 1-4 through this formatter.
 
 function formatValidationResult(fieldName, result) {
-  // your code here
-}
+  return `${result.valid ? "✅" : "❌"} ${fieldName}: ${result.message}`
+  }
+
 
 console.log("\n--- Task 5: Formatted Results ---");
 // Rerun at least 3 tests from each validator through formatValidationResult
+
+
 
 // ----------------------------------------------------------
 // TASK 6 — validateSignUpForm
