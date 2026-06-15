@@ -29,6 +29,16 @@
 //
 // Log: "Student: " + studentName
 
+
+const studentName = "Joshua Rucker";
+const maxScore = 100;
+const passingScore = 60;
+let earnedScore = 73;
+let isExtraCredit = false;
+
+console.log(`Student: ${studentName}`);
+
+
 // ----------------------------------------------------------
 // TASK 2 — Apply extra credit (operators)
 // ----------------------------------------------------------
@@ -41,12 +51,30 @@
 //
 // Then log the final earnedScore.
 
+
+const extraCreditPoints = 5;
+
+if (isExtraCredit) {
+    earnedScore += extraCreditPoints;
+    console.log(`Extra credit applied! New score: ${earnedScore}`);
+} 
+else {
+    console.log(`No extra credit.`)
+};
+
+console.log(`Final score: ${earnedScore}`);
+
 // ----------------------------------------------------------
 // TASK 3 — Calculate the percentage (operators)
 // ----------------------------------------------------------
 // Declare a const called percentage = (earnedScore / maxScore) * 100
 //
 // Log: studentName + " scored " + percentage + "%"
+
+const percentage = (earnedScore / maxScore) * 100;
+
+console.log(`${studentName} scored ${percentage} %`);
+
 
 // ----------------------------------------------------------
 // TASK 4 — Assign a letter grade (else if chain)
@@ -61,12 +89,45 @@
 //
 // ⚠️ Think carefully about the order. Why must 90 come before 80?
 
+if(percentage >= 90) {
+    console.log(`Grade: A 🌟`);
+}
+
+else if(percentage >= 80) {
+    console.log(`Grade: B ✅`);
+}
+
+else if(percentage >= 70) {
+    console.log(`Grade: C 📘`);
+}
+
+else if(percentage >= 60) {
+    console.log(`Grade: D ⚠️`);
+}
+
+else {
+    console.log(`Grade: F ❌`);
+}
+
+
 // ----------------------------------------------------------
 // TASK 5 — Pass or fail (if/else + operators)
 // ----------------------------------------------------------
 // Write an if/else using earnedScore and passingScore:
 //   IF earnedScore >= passingScore → log studentName + " — PASSED ✅"
 //   ELSE                          → log studentName + " — FAILED ❌"
+
+
+if(earnedScore >= passingScore) {
+    console.log(`${studentName} - PASSED ✅`);
+}
+
+else {
+    console.log(`${studentName} - FAILED ❌`);
+}
+
+
+
 
 // ----------------------------------------------------------
 // TASK 6 — Attendance check (logical operators)
@@ -84,6 +145,18 @@
 //   ELSE:
 //     log "🚫 Not eligible. Score: " + earnedScore + " | Attendance: " + attendancePercent + "%"
 
+const attendancePercent = 72;
+const minAttendance = 75;
+
+if(earnedScore >= passingScore && attendancePercent >= minAttendance) {
+    console.log(`✅ Eligible for final grade.`)
+}
+
+else {
+    console.log(`🚫 Not eligible. Score: ${earnedScore} | Attendance: ${attendancePercent} %`)
+}
+
+
 // ----------------------------------------------------------
 // TASK 7 — Honor roll check (logical operators + !)
 // ----------------------------------------------------------
@@ -100,6 +173,18 @@
 //   ELSE:
 //     log studentName + " did not qualify for Honor Roll."
 
+
+const honorRollThreshold = 90;
+const hasDisciplineNote = false;
+
+if(percentage >= honorRollThreshold && !hasDisciplineNote) {
+    console.log(`${studentName} has made the Honor Roll! 🏆`);
+}
+
+else {
+    console.log(`${studentName} did not qualify for Honor Roll.`)
+}
+
 // ----------------------------------------------------------
 // TASK 8 — Connect the dots summary
 // ----------------------------------------------------------
@@ -114,6 +199,16 @@
 //
 // 💡 Math.abs() removes the negative sign from a number.
 //    e.g. Math.abs(-7) → 7
+
+const pointsNeededToPass = passingScore - earnedScore;
+
+if(earnedScore >= passingScore) {
+    console.log(`${studentName} passed with ${earnedScore} points.`);
+}
+
+else {
+    console.log(`${studentName} needs ${Math.abs(pointsNeededToPass)} more points to pass.`)
+}
 
 // ----------------------------------------------------------
 // ⭐ STRETCH GOAL — Subject breakdown
@@ -141,3 +236,41 @@
 //
 // Hint for the || condition:
 //   mathScore < 60 || scienceScore < 60 || englishScore < 60
+
+let mathScore = 88;
+let scienceScore = 74;
+let englishScore = 91;
+
+const totalPoints = mathScore + scienceScore + englishScore;
+const subjectCount = 3;
+const average = totalPoints / subjectCount;
+
+console.log(`Average score: ${average}`);
+
+if(percentage >= 90) {
+    console.log(`Grade: A 🌟`);
+}
+
+else if(percentage >= 80) {
+    console.log(`Grade: B ✅`);
+}
+
+else if(percentage >= 70) {
+    console.log(`Grade: C 📘`);
+}
+
+else if(percentage >= 60) {
+    console.log(`Grade: D ⚠️`);
+}
+
+else {
+    console.log(`Grade: F ❌`);
+}
+
+if(mathScore < 60 || scienceScore < 60 || englishScore < 60) {
+    console.log(`⚠️  Warning: at least one subject needs attention.`);
+}
+
+else {
+    console.log(`✅ All subjects are passing.`);
+}

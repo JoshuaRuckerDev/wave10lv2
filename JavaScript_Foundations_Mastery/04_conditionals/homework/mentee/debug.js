@@ -22,8 +22,16 @@ if (score = passing) {
 }
 
 // What's wrong ↓
+// Uses = (assignment) instead of >= (comparison).
+// score gets changed to 60, so the if statement is always true.
 
 // Your fix ↓
+
+if (score >= passing) {
+    console.log("Pass ✅");
+} else {
+    console.log("Fail ❌");
+}
 
 
 // ----------------------------------------------------------
@@ -44,9 +52,15 @@ if (height >= minHeight && withAdult) {
 }
 
 // What's wrong ↓
+// Uses && (AND) but the requirements say OR.
+// The rider should be allowed if either condition is true.
 
 // Your fix ↓
-
+if (height >= minHeight || withAdult) {
+    console.log("🎢 Enjoy the ride!");
+} else {
+    console.log("🚫 Sorry, you cannot ride.");
+}
 
 // ----------------------------------------------------------
 // 🔴 DEBUG 3 — Hard
@@ -70,6 +84,23 @@ if (orderTotal < 50) {
 
 // Bug 1 ↓
 
+// Bug 1: These are separate if statements, so more than one shipping tier can log.
+// The >= 100 check must come before >= 50 in an if / else if / else chain.
+
+
+
 // Bug 2 ↓
 
+// Bug 2: var is old style. Use const because orderTotal is not reassigned.
+
 // Your fix ↓
+
+const orderTotal = 85;
+
+if (orderTotal >= 100) {
+  console.log("🚀 Free express shipping!");
+} else if (orderTotal >= 50) {
+  console.log("🚚 Standard shipping: $5");
+} else {
+  console.log("📦 Economy shipping: $9.99");
+}
