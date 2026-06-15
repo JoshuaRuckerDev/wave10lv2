@@ -17,7 +17,16 @@ console.log(fullName); // "undefined Rivera"
 
 // What's wrong ↓
 
+// case sensitive issue with firstaname
+
 // Your fix ↓
+
+const user = { firstName: "alex", lastName: "Rivera" };
+
+const { firstName, lastName } = user;
+const fullName = `${firstName} ${lastName}`;
+console.log(fullName); // "undefined Rivera"
+
 
 
 // ----------------------------------------------------------
@@ -40,7 +49,19 @@ console.log(validateUsername("alexdev")); // ✅ valid
 
 // What's wrong ↓
 
+// !username only catches empty strings.
+// A username with only spaces ("   ") is still considered valid.
+// The input should be trimmed before checking.
+
 // Your fix ↓
+
+function validateUsername(username) {
+  if (!username.trim()) {
+    return "Username is required";
+  }
+
+  return `Valid: ${username}`;
+}
 
 
 // ----------------------------------------------------------
@@ -77,6 +98,34 @@ console.log(validateForm({ username: "al",      email: "a@b.com", age: "28" }));
 
 // Bug 1 ↓
 
+// Bug 1: parseInt can return NaN for invalid age input like "abc".
+// The function should check isNaN(age) before comparing the age.
+
 // Bug 2 ↓
 
+// Bug 2: username.length > 3 rejects usernames with exactly 3 characters.
+// If the minimum is 3 characters, the check should be username.length >= 3.
+
 // Your fix ↓
+
+function validateAge(ageStr) {
+  const age = Number(ageStr);
+
+  if (isNaN(age)) {
+    return false;
+  }
+
+  return age >= 13 && age <= 120;
+}
+
+function validateForm(data) {
+  const usernameOk = data.username.length >= 3;
+  const emailOk = data.email.includes("@");
+  const ageOk = validateAge(data.age);
+
+  if (usernameOk && emailOk && ageOk) {
+    return `Welcome, ${data.username}!`;
+  }
+
+  return "Form invalid";
+}

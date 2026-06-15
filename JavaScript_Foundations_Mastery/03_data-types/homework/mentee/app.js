@@ -324,14 +324,23 @@ console.log(isValidPassword(testInputs.noSpecialPassword));
 // Rerun your tests from Tasks 1-4 through this formatter.
 
 function formatValidationResult(fieldName, result) {
-  return `${result.valid ? "✅" : "❌"} ${fieldName}: ${result.message}`
+  return `${result.valid ? "✅" : "❌"} ${fieldName}: ${result.message}`;
   }
 
 
 console.log("\n--- Task 5: Formatted Results ---");
 // Rerun at least 3 tests from each validator through formatValidationResult
+console.log(formatValidationResult("Username", isValidUsername(testInputs.validUsername)));
+console.log(formatValidationResult("Username", isValidUsername(testInputs.shortUsername)));
+console.log(formatValidationResult("Username", isValidUsername(testInputs.spacesUsername)));
 
+console.log(formatValidationResult("Age", isValidAge(testInputs.validAge)));
+console.log(formatValidationResult("Age", isValidAge(testInputs.youngAge)));
+console.log(formatValidationResult("Age", isValidAge(testInputs.textAge)));
 
+console.log(formatValidationResult("Password", isValidPassword(testInputs.validPassword)));
+console.log(formatValidationResult("Password", isValidPassword(testInputs.shortPassword)));
+console.log(formatValidationResult("Password", isValidPassword(testInputs.noSpecialPassword)));
 
 // ----------------------------------------------------------
 // TASK 6 — validateSignUpForm
@@ -368,11 +377,49 @@ console.log("\n--- Task 5: Formatted Results ---");
 // log each field result through formatValidationResult.
 
 function validateSignUpForm(formData) {
-  // your code here
+  const results = {
+    username: isValidUsername(formData.username),
+    email: isValidEmail(formData.email),
+    age: isValidAge(formData.age),
+    password: isValidPassword(formData.password)
+  };
+
+  const formValid = Object.values(results).every(r => r.valid);
+
+  return {
+    valid: formValid,
+    results: results
+  };
+  
 }
 
 console.log("\n--- Task 6: Full Form Validation ---");
-// your code here
+const validForm = validateSignUpForm({
+  username: "alexdev",
+  email: "alex@devstudio.com",
+  age: "28",
+  password: "SecurePass1!"
+});
+
+const invalidForm = validateSignUpForm({
+  username: "al",
+  email: "not-an-email",
+  age: "twelve",
+  password: "abc"
+});
+
+console.log(`Valid form passed : ${validForm.valid}`);
+console.log(`Invalid form passed: ${invalidForm.valid}`);
+
+console.log(formatValidationResult("Username", validForm.results.username));
+console.log(formatValidationResult("Email", validForm.results.email));
+console.log(formatValidationResult("Age", validForm.results.age));
+console.log(formatValidationResult("Password", validForm.results.password));
+
+console.log(formatValidationResult("Username", invalidForm.results.username));
+console.log(formatValidationResult("Email", invalidForm.results.email));
+console.log(formatValidationResult("Age", invalidForm.results.age));
+console.log(formatValidationResult("Password", invalidForm.results.password));
 
 // ----------------------------------------------------------
 // TASK 7 — cleanFormData
@@ -399,11 +446,32 @@ console.log("\n--- Task 6: Full Form Validation ---");
 //   })
 
 function cleanFormData(rawFormData) {
-  // your code here
+  const cleanValues = {
+    username: rawFormData.username.trim().toLowerCase(),
+    email: rawFormData.email.trim().toLowerCase(),
+    age: rawFormData.age.trim(),
+    password: rawFormData.password
+  };
+
+    return cleanValues;
 }
 
+
 console.log("\n--- Task 7: Cleaning Form Data ---");
-// your code here
+
+const messyData = {
+  username: "AlexDev",
+  email: "ALEX@DEVSTUDIO.COM",
+  age: "28",
+  password: "SecurePass1!"
+};
+
+const cleanedData = cleanFormData(messyData);
+
+
+console.log(`Cleaned username: "${messyData.username}" -> "${cleanedData.username}"`);
+console.log(`Cleaned email: "${messyData.email}" -> "${cleanedData.email}"`);
+console.log(`Cleaned age: "${messyData.age}" -> "${cleanedData.age}"`);
 
 // ----------------------------------------------------------
 // TASK 8 — Connect the dots: full pipeline
@@ -419,7 +487,18 @@ console.log("\n--- Task 7: Cleaning Form Data ---");
 // (Hint: would " ALEX@DEVSTUDIO.COM " pass the email validator?)
 
 console.log("\n--- Task 8: Full Pipeline ---");
-// your code here
+
+
+const cleaned = cleanFormData(messyData);
+const validation = validateSignUpForm(cleaned);
+
+console.log(formatValidationResult("Username", validation.results.username));
+console.log(formatValidationResult("Email", validation.results.email));
+console.log(formatValidationResult("Age", validation.results.age));
+console.log(formatValidationResult("Password", validation.results.password));
+
+//Clean before validating so extra spaces and uppercase email letters do not cause valid input to fail.
+
 
 // ----------------------------------------------------------
 // ⭐ STRETCH GOAL — formatSummary
@@ -443,8 +522,19 @@ console.log("\n--- Task 8: Full Pipeline ---");
 // Write a comment: what does Object.entries() return?
 
 function formatSummary(validationResult) {
-  // your code here
-}
+  let summary = "";
+  summary += `=== Sign-Up Validation Report ===\n`;
+  summary += `Overall: ${validationResult.valid ? "✅ Ready to submit" : "❌ Form has errors"}\n`;
+  Object.entries(validationResult.results).forEach(([field, result]) => {
+    summary += formatValidationResult(field, result) + "\n"
+  });
+
+  return summary;
+
+  }
+
 
 console.log("\n--- Stretch: formatSummary ---");
-// your code here
+console.log(formatSummary(validation));
+
+// Object.entries() returns an array of key-value pairs from an object.
