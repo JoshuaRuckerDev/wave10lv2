@@ -123,3 +123,4 @@ These projects integrate **DOM manipulation, local storage, navigation, API usag
 ---
 
 ### 💡 Which project are you building? Need guidance? Let’s discuss!
+
