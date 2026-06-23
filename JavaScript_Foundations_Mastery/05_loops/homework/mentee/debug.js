@@ -18,8 +18,14 @@ for (let i = 1; i < 10; i++) {
 
 // What's wrong ↓
 
+// The loop stops before reaching 10 because it uses < instead of <=.
+
+
 // Your fix ↓
 
+for (let i = 1; i <= 10; i++) {
+    console.log(i);
+}
 
 // ----------------------------------------------------------
 // 🟡 DEBUG 2 — Medium
@@ -35,7 +41,16 @@ console.log("Sum: " + total);
 
 // What's wrong ↓
 
+// total is declared inside the loop, so it resets to 0 every iteration.
+
+
 // Your fix ↓
+
+let total = 0;
+
+for (let i = 1; i <= 5; i++) {
+    total += i;
+}
 
 
 // ----------------------------------------------------------
@@ -56,7 +71,19 @@ for (let i = 1; i <= 10; i++) {
 console.log("Done!");
 
 // Bug 1 ↓
+// The condition checks for even numbers instead of odd numbers.
+
 
 // Bug 2 ↓
 
+// The continue statement is unnecessary and causes the loop to skip odd numbers.
+
+
 // Your fix ↓
+for (let i = 1; i <= 10; i++) {
+    if (i % 2 !== 0) {
+        console.log(i);
+    }
+}
+
+console.log("Done!");
