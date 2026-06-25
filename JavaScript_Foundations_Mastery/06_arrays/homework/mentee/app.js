@@ -32,6 +32,15 @@
 // Log: "📚 " + className
 // Log: "Students enrolled: " + studentNames.length
 
+const className = "JavaScript Fundamentals"; //classname is const due to it being the name of class is fixed
+const passingScore = 60; // passing score stays the same
+let studentNames = ["Kat Smith", "Kia Zine", "John Lumber", "Nate Nitro", "Cygnus Mentz", "Zara Kai"]; // the list of students will not change
+let studentScores = [74, 58, 92, 65, 81, 47]; // scores may change during the course
+
+console.log(`📚 ${className}`);
+console.log(`Students enrolled: ${studentNames.length}`);
+
+
 // ----------------------------------------------------------
 // TASK 2 — Access and display by index
 // ----------------------------------------------------------
@@ -42,6 +51,10 @@
 //
 // Then log the score of the THIRD student (index 2).
 
+console.log(`First student: ${studentNames[0]} - ${studentScores[0]}`);
+console.log(`Last student: ${studentNames[studentNames.length - 1]} - ${studentScores[studentScores.length -1]}`);
+console.log(`Third Student: ${studentNames[2]} - ${studentScores[2]}`);
+
 // ----------------------------------------------------------
 // TASK 3 — Update a score
 // ----------------------------------------------------------
@@ -50,6 +63,9 @@
 //
 // Log: "Updated score for " + studentNames[3] + ": " + studentScores[3]
 // Log the full studentScores array to confirm the change.
+
+studentScores[3] = 72;
+console.log(`Updated score for ${studentNames[3]}: ${studentScores[3]}`);
 
 // ----------------------------------------------------------
 // TASK 4 — Loop and display the full class
@@ -63,6 +79,10 @@
 //   2. [name] → [score]
 //   ...
 
+for (let i = 0; i < studentNames.length; i++) {
+    console.log(`${i + 1}. ${studentNames[i]} → ${studentScores[i]} `);
+}
+
 // ----------------------------------------------------------
 // TASK 5 — Calculate class stats
 // ----------------------------------------------------------
@@ -73,6 +93,13 @@
 //   let passCount    = 0
 //   let failCount    = 0
 //
+
+let totalScore = 0;
+let highScore = 0;
+let lowScore = studentScores[0]
+let passCount = 0;
+let failCount = 0;
+
 // Write a for loop through studentScores. On each iteration:
 //   - Add the score to totalScore
 //   - IF score > highScore → update highScore
@@ -80,6 +107,11 @@
 //   - IF score >= passingScore → increment passCount
 //   - ELSE → increment failCount
 //
+
+for (let i = 0; i < studentScores.length; i++) {
+    if (studentScores > highScore)
+}
+
 // After the loop:
 //   Declare a const called classAverage = totalScore / studentScores.length
 //
