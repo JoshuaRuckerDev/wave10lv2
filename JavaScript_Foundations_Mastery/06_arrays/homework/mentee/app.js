@@ -109,8 +109,33 @@ let failCount = 0;
 //
 
 for (let i = 0; i < studentScores.length; i++) {
-    if (studentScores > highScore)
+    let score = studentScores[i]
+    totalScore += score;
+    
+    if (score > highScore) {
+        highScore = score;
+    }
+
+    if (score < lowScore) {
+        lowScore = score;
+    }
+
+    if (score >= passingScore) {
+        passCount++;
+    }
+
+    else {
+        failCount++;
+    }
 }
+
+const classAverage = totalScore / studentScores.length;
+
+console.log(`📊 Class Stats:`);
+console.log(`Average score: ${classAverage}`);
+console.log(`Highest score: ${highScore}`);
+console.log(`Lowest score: ${lowScore}`);
+console.log(`Passed: ${passCount} | Failed: ${failCount}`);
 
 // After the loop:
 //   Declare a const called classAverage = totalScore / studentScores.length
@@ -135,6 +160,28 @@ for (let i = 0; i < studentScores.length; i++) {
 //   below 60     → "F"
 //
 // Log: studentNames[i] + ": " + studentScores[i] + " — Grade " + grade
+
+for (let i = 0; i < studentScores.length; i++) {
+    let score = studentScores[i];
+    let grade;
+
+    if (score >= 90) {
+        grade = "A";
+    }   else if (score >= 80) {
+        grade = "B";
+    }   else if (score >= 70) {
+        grade = "C";
+    }   else if (score >= 60) {
+        grade = "D";
+    }   else {
+        grade = "F";
+    }
+    
+    console.log(`${studentNames[i]} ${studentScores[i]} - Grade ${grade} `);
+
+}
+
+
 
 // ----------------------------------------------------------
 // TASK 7 — Add and remove students
