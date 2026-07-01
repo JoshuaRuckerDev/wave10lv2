@@ -18,7 +18,11 @@ console.log(letters[middleIndex]);
 
 // What's wrong ↓
 
+// middleIndex becomes 2.5, but array indexes must be whole numbers.
+
 // Your fix ↓
+
+const middleIndex = Math.floor(letters.length / 2);
 
 
 // ----------------------------------------------------------
@@ -38,8 +42,18 @@ console.log("Total: $" + total);
 
 // What's wrong ↓
 
+// The loop uses <=, so it tries to access prices[4], which is undefined.
+
+
 // Your fix ↓
 
+let total = 0;
+
+for (let i = 0; i < prices.length; i++) {
+    total += prices[i];
+}
+
+console.log("Total: $" + total);
 
 // ----------------------------------------------------------
 // 🔴 DEBUG 3 — Hard
@@ -65,6 +79,25 @@ console.log("Winner: " + names[topIndex] + " with " + topScore);
 
 // Bug 1 ↓
 
+// Bug 1: topIndex starts at 1, which assumes Bob is the winner before checking all scores.
+
 // Bug 2 ↓
 
+// Bug 2: scores.i is wrong because arrays use bracket notation with variables: scores[i].
+
 // Your fix ↓
+
+const names = ["Alice", "Bob", "Carol", "Dave"];
+const scores = [82, 91, 78, 95];
+
+let topIndex = 0;
+let topScore = scores[0];
+
+for (let i = 0; i < scores.length; i++) {
+  if (scores[i] > topScore) {
+    topScore = scores[i];
+    topIndex = i;
+  }
+}
+
+console.log("Winner: " + names[topIndex] + " with " + topScore);

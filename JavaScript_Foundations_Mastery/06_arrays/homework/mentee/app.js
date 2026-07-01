@@ -200,6 +200,21 @@ for (let i = 0; i < studentScores.length; i++) {
 //   "Student removed: " + removedName
 // Log: "Class size now: " + studentNames.length
 
+studentNames.push("Jake Ice");
+studentScores.push(88);
+
+console.log(`New student added: ${studentNames[studentNames.length - 1]}`);
+console.log(`Class size now: ${studentNames.length}`);
+
+let removedName = studentNames.shift();
+studentScores.shift();
+
+console.log(`Student removed: ${removedName}`);
+console.log(`Class size now: ${studentNames.length}`);
+
+
+
+
 // ----------------------------------------------------------
 // TASK 8 — Connect the dots: find the top student
 // ----------------------------------------------------------
@@ -213,6 +228,19 @@ for (let i = 0; i < studentScores.length; i++) {
 // After the loop:
 //   Log: "🏆 Top student: " + studentNames[topStudentIndex]
 //          + " with " + studentScores[topStudentIndex] + " points"
+
+
+let topStudentIndex = 0;
+
+for (let i = 0; i < studentScores.length; i++) {
+    if (studentScores[i] > 
+    studentScores[topStudentIndex]) {
+        topStudentIndex = i;
+    }
+}
+
+console.log(`🏆 Top student: ${studentNames[topStudentIndex]} with ${studentScores[topStudentIndex]} points`);
+
 
 // ----------------------------------------------------------
 // ⭐ STRETCH GOAL — Curved grades
@@ -238,3 +266,32 @@ for (let i = 0; i < studentScores.length; i++) {
 //
 // Hint: compare studentScores[i] < passingScore &&
 //              curvedScores[i] >= passingScore
+
+let curvedScores = [];
+const curvedPoints = 5;
+
+for (let i = 0; i < studentScores.length; i++) {
+    let curvedScore = studentScores[i] + curvedPoints;
+    if (curvedScore > 100) {
+        curvedScore = 100;
+    }  
+
+    curvedScores.push(curvedScore);
+}   
+
+console.log(`Original scores: ${studentScores}`);
+console.log(`Curved scores: ${curvedScores}`);
+
+let newlyPassing = 0;
+
+for (let i = 0; i < curvedScores.length; i++) {
+    if(
+        studentScores[i] < passingScore &&
+        curvedScores[i] >= passingScore
+    ) {
+
+    newlyPassing++;
+    }
+}
+
+console.log(`New students passing after curve: ${newlyPassing}`);
