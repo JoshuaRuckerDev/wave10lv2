@@ -140,16 +140,15 @@ document
 // the initial count. Or just set the count directly on page load.
 
 function handleBioInput(event) {
-  const charValue = event.target.value;
-  const charValueLenght = charValue.length;
-  selectCharCount = getElementById("#char-count");
-  selectCharCount.textContent = `${charValueLenght} / 200`;
+  const charValue = event.target.value.length;
+  selectCharCount = document.getElementById("char-count");
+  selectCharCount.textContent = `${charValue} / 200`;
 
   selectCharCount.classList.remove("warning", "limit");
 
-  if (charValueLenght >= 200) {
+  if (charValue >= 200) {
     classList.add("limit");
-  } else if (charValueLenght >= 160) {
+  } else if (charValue >= 160) {
     classList.add("warning");
   }
 }
@@ -201,15 +200,34 @@ document.getElementById("bio-input").addEventListener("input", handleBioInput);
 //     .addEventListener("submit", handleSkillSubmit);
 
 function updateSkillCount() {
-  // your code here
+  const skillList = document.getElementById("skills-list");
+  document.getElementById("skill-count");
+  textContent = skillList.children.length;
 }
 
 function addSkillToPage(skillName) {
-  // your code here
+  const skillsList = document.getElementById("skill-list");
+  const li = document.createElement("li");
+  li.textContent = skillName;
+
+  li.addEventListener("click", function () {
+    li.remove();
+    updatedSkillCount();
+  });
+
+  skillsList.appendChild(li);
+  updateSkillCount();
 }
 
 function handleSkillSubmit(event) {
-  // your code here
+  event.preventDefault();
+  const skillInput = document.getElementById("skill-input");
+  const elTrim = skillInput.value.trim();
+
+  if (elTrim) {
+    addSkillToPage(skillName);
+    skillInput.value = "";
+  }
 }
 
 // wire up the event listener here
