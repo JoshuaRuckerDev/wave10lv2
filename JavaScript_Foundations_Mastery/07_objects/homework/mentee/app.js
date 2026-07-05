@@ -326,3 +326,26 @@ console.log(`🏆 Most valuable: ${topProduct.name} | $${topProduct.price} x ${t
 // Hint: declare count, stock, value inside the OUTER loop
 // so they reset automatically on each category iteration.
 
+const categories = ["Electronics", "Clothing", "Food", "Books"]
+
+for (let c = 0; c < categories.length; c++) {
+
+    let count = 0;
+    let stock = 0;
+    let value = 0;
+
+    for (let i = 0; i < inventory.length; i++) {
+        if(inventory[i].category === categories[c]) {
+            count++;
+            stock += inventory[i].stock;
+            value += inventory[i].price * inventory[i].stock;
+        }
+    }
+        console.log(`--- ${categories[c]} ---`);
+    console.log(`Products: ${count}`);
+    console.log(`Total stock: ${stock}`);
+    console.log(`Category value: $${value}`);
+}
+
+
+

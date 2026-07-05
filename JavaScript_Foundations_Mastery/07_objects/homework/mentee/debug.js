@@ -22,8 +22,11 @@ console.log(product.Category);
 
 // What's wrong ↓
 
+// The property name uses a capital "C", but the object property is lowercase.
+
 // Your fix ↓
 
+console.log(product.category);
 
 // ----------------------------------------------------------
 // 🟡 DEBUG 2 — Medium
@@ -43,7 +46,17 @@ for (let i = 0; i < inventory.length; i++) {
 
 // What's wrong ↓
 
+// the object properties are case-sensitive.
+
 // Your fix ↓
+
+const inventory = [
+    { name: "Shirt", price: 29.99 },
+    { name: "Jeans", price: 59.99 },
+    { name: "Jacket", price: 89.99 }
+];
+
+console.log(inventory[i].Name + " - $" + inventory[i].Price);
 
 
 // ----------------------------------------------------------
@@ -68,6 +81,18 @@ console.log("Total value: $" + totalValue);
 
 // Bug 1 ↓
 
+// the for loop is off. It should be less than and not <=.
+
 // Bug 2 ↓
 
+// The code uses products.stock instead of products[i].stock.
+
 // Your fix ↓
+
+let totalValue = 0;
+
+for (let i = 0; i < products.length; i++) {
+    totalValue += products[i].price * products[i].stock;
+}
+
+console.log("Total value: $" + totalValue);
