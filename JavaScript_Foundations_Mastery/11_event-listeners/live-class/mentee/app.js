@@ -256,11 +256,19 @@ function handleSkillSubmit(event) {
 // Wire it up to document.
 
 function handleKeyDown(event) {
-  // your code here
+  document.getElementById("key-output").textContent = `Key: ${event.key}`;
+
+  if (event.key === "d") {
+    handleThemeToggle();
+  }
+
+  if (event.key === "Escape") {
+    document.getElementById("skill-Input").value = "";
+  }
 }
 
 // wire up to document here
-
+document.addEventListener("keydown", handleKeyDown);
 // ----------------------------------------------------------
 // PART 5 — EVENT DELEGATION
 // ----------------------------------------------------------
@@ -301,8 +309,15 @@ function handleKeyDown(event) {
 // event.target and event.currentTarget here?
 
 function handleSkillClick(event) {
-  // your code here
+  if (event.target.tagName === "") {
+    event.target.remove();
+    updateSkillCount();
+  }
 }
+
+document
+  .getElementById("skills-list")
+  .addEventListener("click", handleSkillClick);
 
 // wire up the event listener here
 
@@ -322,9 +337,16 @@ function handleSkillClick(event) {
 // After you confirm it works, comment it out so the theme button
 // works normally again.
 
-function handleOneTimeClick(event) {
-  // your code here
+function handleOneTimeClick() {
+  console.log("Button clicked once! Removing listener now.");
+  document
+    .getElementById("theme-btn")
+    .removeEventListener("click", handleThemeToggle);
 }
+
+document
+  .getElementById("theme-btn")
+  .addEventListener("click", handleOneTimeClick);
 
 // TASK 8 — wire it all up in an init function
 // Declare a function called init.
