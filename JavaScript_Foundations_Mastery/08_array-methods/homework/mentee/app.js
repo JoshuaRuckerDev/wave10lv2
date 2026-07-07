@@ -82,6 +82,10 @@ const orders = [
 //   + " | $" + order.total
 //   + " | " + order.status.toUpperCase()
 
+orders.forEach(function(order) {
+  console.log(`# ${order.id} | ${order.customer} | $${order.total} | ${order.status.toUpperCase()}`)
+});
+
 // ----------------------------------------------------------
 // TASK 2 — Build receipt strings (map)
 // ----------------------------------------------------------
@@ -92,6 +96,19 @@ const orders = [
 //
 // Log receipts.length to confirm it matches orders.length.
 // Use forEach on receipts to log each one.
+
+const receipts = orders.map (function (order) {
+    return `Order # ${order.id} - ${order.customer} -$ ${order.total} " ( ${order.items} items(s)`;
+
+});
+
+console.log(receipts.length);
+
+receipts.forEach(function(receipt) {
+    console.log(receipt);
+});
+
+
 
 // ----------------------------------------------------------
 // TASK 3 — Build order summary objects (map)
