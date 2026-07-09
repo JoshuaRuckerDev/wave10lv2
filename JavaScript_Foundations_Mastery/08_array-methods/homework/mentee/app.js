@@ -98,7 +98,7 @@ orders.forEach(function(order) {
 // Use forEach on receipts to log each one.
 
 const receipts = orders.map (function (order) {
-    return `Order # ${order.id} - ${order.customer} -$ ${order.total} " ( ${order.items} items(s)`;
+    return `Order # ${order.id} - ${order.customer} -$ ${order.total} ( ${order.items} items(s)`;
 
 });
 
@@ -119,6 +119,17 @@ receipts.forEach(function(receipt) {
 //
 // Log summaries.
 
+const summaries = orders.map(function(order) {
+  return{
+    id: order.id,
+    customer: order.customer,
+    total: order.total
+  };
+
+});
+
+console.log(summaries);
+
 // ----------------------------------------------------------
 // TASK 4 — Filter by status (filter)
 // ----------------------------------------------------------
@@ -131,6 +142,23 @@ receipts.forEach(function(receipt) {
 //   "Pending:   " + pendingOrders.length
 //   "Cancelled: " + cancelledOrders.length
 
+const deliveredOrders = orders.filter(function(order) {
+    return order.status === "delivered";
+    });
+
+const pendingOrders = orders.filter(function(order) {
+    return order.status === "pending";
+});
+
+const cancelledOrders = orders.filter(function(order) {
+    return order.status === "cancelled";
+});
+
+console.log(`Delivered: ${deliveredOrders.length}`);
+console.log(`Pending: ${pendingOrders.length}`);
+console.log(`Cancelled: ${cancelledOrders.length}`);
+
+
 // ----------------------------------------------------------
 // TASK 5 — High value orders (filter + map chained)
 // ----------------------------------------------------------
@@ -139,6 +167,18 @@ receipts.forEach(function(receipt) {
 // Store the result in highValueCustomers.
 //
 // Log: "High value customers: " + highValueCustomers
+
+const highValuedCustomers = orders.filter(function(order) {
+    return order.total > 100;
+
+  })
+
+  .map(function(order) {
+    return order.customer;
+  });
+
+  console.log(`High value customers: ${highValuedCustomers}`);
+
 
 // ----------------------------------------------------------
 // TASK 6 — Find a specific order (find)
