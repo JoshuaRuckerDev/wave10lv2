@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -21,7 +21,6 @@
   -->
 
   <body>
-
     <header class="site-header">
       <h1 id="page-title">Alex's Dev Profile</h1>
       <div class="header-actions">
@@ -33,7 +32,6 @@
     </header>
 
     <main class="layout">
-
       <aside class="profile-card">
         <div class="avatar" id="avatar">AR</div>
         <h2 id="user-name">Alex Rivera</h2>
@@ -57,11 +55,15 @@
       </aside>
 
       <section class="content">
-
         <div class="section-block">
           <h3>About</h3>
-          <textarea id="bio-input" maxlength="200"
-            placeholder="Write a short bio...">Passionate developer with 4 years of experience building web apps.</textarea>
+          <textarea
+            id="bio-input"
+            maxlength="200"
+            placeholder="Write a short bio..."
+          >
+Passionate developer with 4 years of experience building web apps.</textarea
+          >
           <p id="char-count" class="char-count">0 / 200</p>
         </div>
 
@@ -69,12 +71,16 @@
           <h3>Skills <span id="skill-count" class="count-pill">0</span></h3>
           <ul id="skills-list"></ul>
           <form id="add-skill-form" class="add-form">
-            <input type="text" id="skill-input" placeholder="Add a skill..." autocomplete="off" />
+            <input
+              type="text"
+              id="skill-input"
+              placeholder="Add a skill..."
+              autocomplete="off"
+            />
             <button type="submit">Add</button>
           </form>
           <p class="hint">💡 Click any skill to remove it</p>
         </div>
-
       </section>
     </main>
 

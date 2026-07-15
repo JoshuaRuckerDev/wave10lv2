@@ -246,7 +246,20 @@ function renderWithDefaults() {
 }
 
 function loadProfile() {
-  // your code here
+  const saved = localStorage.getItem("profileData");
+
+  if (!saved) {
+    renderWithDefaults();
+    return;
+  }
+
+  const profileData = JSON.parse(saved);
+  document.getElementById("bio-input").value = profileData.bio;
+  document.getElementById("skills-list").innerHTML = "";
+  profileData.skills.forEach((skill) => addSkillToPage(skill));
+
+  document.getElementById("status-select").value = profileData.status;
+  renderStatusBadge(profileData.status);
 }
 
 // ----------------------------------------------------------
