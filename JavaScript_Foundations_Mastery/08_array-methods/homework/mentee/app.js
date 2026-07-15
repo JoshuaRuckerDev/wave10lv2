@@ -192,6 +192,21 @@ const highValuedCustomers = orders.filter(function(order) {
 // Log missingOrder.
 // Write a comment: what does find return when nothing matches?
 
+
+const foundOrder = orders.find(function(order) {
+    return order.id === 1005;
+});
+
+console.log("Found: " + foundOrder.customer + " - $" + foundOrder.total);
+
+const missingOrder = orders.find(function(order) {
+  return order.id === 9999;
+});
+
+console.log(missingOrder);
+
+// find() returns undefined if no matching item is found.
+
 // ----------------------------------------------------------
 // TASK 7 — Ask questions about the data (some + every)
 // ----------------------------------------------------------
@@ -209,6 +224,45 @@ const highValuedCustomers = orders.filter(function(order) {
 // Use every → do ALL priority orders have more than 1 item?
 //   Hint: filter for isPriority first, then chain every
 //   Log: "All priority multi-item: " + result // prediction:
+
+// Prediction: true
+const hasPriority = orders.some(function(order) {
+  return order.isPriority === true;
+});
+
+console.log(`Has priority order: ${hasPriority}`);
+
+
+// Prediction: true
+const has300Order = orders.some(function(order) {
+  return order.total > 300;
+});
+
+console.log(`Has $300+ order: ${has300Order}`);
+
+
+//Prediction: false
+const allActive = orders.every(function(order) {
+  return (
+    order.status === "delivered" ||
+    order.status === "pending"
+  );
+});
+
+console.log(`All active: ${allActive}`);
+
+
+//Prediction: false
+const allPriorityMultiItem = 
+    orders.filter(function(order) {
+      return order.isPriority === true;
+    })
+    .every(function(order) {
+      return orders.items > 1;
+    });
+
+console.log(`All Priority multi-item: ${allPriorityMultiItem}`);
+
 
 // ----------------------------------------------------------
 // TASK 8 — Calculate totals (reduce)
