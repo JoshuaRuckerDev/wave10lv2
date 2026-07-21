@@ -125,7 +125,9 @@ function renderHeader(taskList) {
 // Task 3 will handle placing it in the right column.
 
 function createTaskCard(task) {
-  // your code here
+  const li = document.createElement("li");
+  li.classList.add("task-card");
+  li.dataset.id = task.id;
 }
 
 // ----------------------------------------------------------
@@ -278,3 +280,26 @@ function renderAll() {
 // ============================================================
 // CALL YOUR FUNCTIONS HERE
 // ============================================================
+
+function markComplete(taskId) {
+  const findTask = tasks.find((task) => task.id === taskId);
+
+  if (!task) {
+    return;
+  }
+
+  task.status = "done";
+
+  const card = document.querySelector("data-id='" + taskId + "']");
+
+  if (card) {
+    card.classList.add("completed");
+    document.getElementById("list-done").appendChild(card);
+  }
+
+  updateCounts(tasks);
+}
+
+renderAll();
+addNewTask("Write unit tests", "Carlos", "high");
+markComplete(1);
