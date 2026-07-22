@@ -280,6 +280,20 @@ console.log(`All Priority multi-item: ${allPriorityMultiItem}`);
 //   const averageOrder = totalRevenue / orders.length
 //   Log: "Average order value: $" + averageOrder
 
+const totalRevenue = orders.reduce(function(total, order) {
+    return total + order.total;
+}, 0);
+
+console.log(`Total revenue: $${totalRevenue}`);
+
+const totalItems = orders.reduce(function(total, order){
+    return total + order.items;
+}, 0);
+
+console.log(`Total items ordered: ${totalItems}`);
+
+const averageOrder = totalRevenue / orders.length;
+console.log(`Average order value: $${averageOrder.toFixed(2)}`);
 // ----------------------------------------------------------
 // TASK 9 — Connect the dots (filter + reduce)
 // ----------------------------------------------------------
