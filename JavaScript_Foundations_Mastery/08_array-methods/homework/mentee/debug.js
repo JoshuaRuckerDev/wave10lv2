@@ -23,8 +23,13 @@ console.log("With tax:", withTax);
 
 // What's wrong ↓
 
-// Your fix ↓
+// The call back did not return a value due to no return.
 
+// Your fix ↓
+const withTax = prices.map(function(price) {
+    const taxed = price * 1.10;
+    return taxed;
+});
 
 // ----------------------------------------------------------
 // 🟡 DEBUG 2 — Medium
@@ -47,7 +52,16 @@ console.log(pending);
 
 // What's wrong ↓
 
+// The callback uses the assignment operator (=) instead of
+// the strict equality operator (===). It changes the status
+// instead of checking whether the status is "pending".
+
+
 // Your fix ↓
+
+const pending = orders.filter(function(order) {
+    return order.status === "pending";
+});
 
 
 // ----------------------------------------------------------
@@ -71,8 +85,18 @@ console.log("Order total: $" + orderTotal);
 
 // Bug 1 ↓
 
+// No initial accumulator value was provided.
+
 // Bug 2 ↓
 // Hint: run it and read the output carefully.
 // What is the value on the first iteration?
 
+// the currency result is not formatted to two decimal places.
+
 // Your fix ↓
+
+const orderTotal = lineItems.reduce(function(acc, item) {
+    return acc + item.quantity * item.price;
+}, 0);
+
+console.log("Order total: $" + orderTotal.toFixed(2));

@@ -311,6 +311,26 @@ console.log(`Average order value: $${averageOrder.toFixed(2)}`);
 //   "Unconfirmed revenue: $" + pendingRevenue
 //   (This is money that hasn't been secured yet)
 
+const deliveredRevenue = orders.filter(function(order) {
+    return order.status === "delivered";
+})
+  .reduce(function(total, order) {
+    return total + order.total;
+  }, 0);
+
+console.log(`Delivered revenue: $${deliveredRevenue}`);
+
+const pendingRevenue = orders.filter(function(order) {
+  return order.status === "pending";
+})
+  .reduce(function(total,order) {
+    return total + order.total;
+  }, 0);
+  
+console.log(`Pending revenue: $${pendingRevenue}`);
+
+console.log(`Unconfirmed revenue: $${pendingRevenue}`);
+
 // ----------------------------------------------------------
 // TASK 10 — Full pipeline (all methods)
 // ----------------------------------------------------------
@@ -335,6 +355,33 @@ console.log(`Average order value: $${averageOrder.toFixed(2)}`);
 //
 // Step 5: use forEach on priorityDisplay to log each line
 
+const priorityOrders = orders.filter(function(order) {
+    return order.isPriority === true;
+})
+
+const allPriorityDelivered =
+  priorityOrders.every(function(order) {
+    return order.status === "delivered";
+  })
+
+  console.log(`All priority delivered: ${allPriorityDelivered}`);
+
+  const priorityRevenue = priorityOrders.reduce(function(total, order) {
+      return total + order.total;
+  }, 0);
+
+  console.log(`Priority revenue: $${priorityRevenue}`);
+
+  const priorityDisplay = priorityOrders.map(function(order) {
+      return `⚡ #${order.id} ${order.customer} - $${order.total}`;
+});
+  
+priorityDisplay.forEach(function(line) {
+    console.log(line);
+});
+
+
+
 // ----------------------------------------------------------
 // ⭐ STRETCH GOAL — Status report object (reduce)
 // ----------------------------------------------------------
@@ -358,3 +405,35 @@ console.log(`Average order value: $${averageOrder.toFixed(2)}`);
 // Log report.
 //
 // Hint: inside the reduce callback, update acc properties and return acc.
+
+
+const report = orders.reduce(function(acc, order) {
+
+    acc.totalOrders++;
+    acc.totalRevenue += order.total;
+
+    if(order.status === "delivered") {
+      acc.deliveryCount++;
+    }
+
+    if(order.status === "cancelled") {
+      acc.cancelledCount++;
+    }
+
+    if(order.isPriority) {
+      acc.priorityCount++;
+    }
+
+    return acc;
+}, {
+
+    totalOrders: 0,
+    totalRevenue: 0,
+    deliveryCount: 0,
+    pendingCount: 0,
+    cancelledCount: 0,
+    priorityCount:0
+
+});
+
+console.log(report);
