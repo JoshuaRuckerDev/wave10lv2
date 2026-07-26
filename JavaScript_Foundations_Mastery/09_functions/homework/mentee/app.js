@@ -82,6 +82,25 @@ const users = [
 // Call it twice with different data. Log both results.
 // Write a comment: why is isPremium = false a good default here?
 
+function createUser(username, email, age, isPremium = false) {
+    return {
+      id: Date.now(), 
+      username,
+      email,
+      age,
+      isPremium,
+      loginCount: 0
+    };
+}
+
+const user1 = createUser("Luffy", "mybroace@email.com", 22, true);
+const user2 = createUser("Zoro", "needdirection@email.com", 26, true);
+
+console.log(user1);
+console.log(user2);
+// Defaulting to false prevents every new user from automatically becoming premium.
+
+
 // ----------------------------------------------------------
 // TASK 2 — isValidUser  [FUNCTION EXPRESSION]
 // ----------------------------------------------------------
@@ -104,6 +123,16 @@ const users = [
 // Write a comment: why is isValidUser a function EXPRESSION
 // instead of a DECLARATION here?
 
+const isValidUser = function(user) {
+  return (user.username.length > 0 &&
+         user.email.length > 0 &&
+         user.age >=13);
+};
+  users.forEach(function(user) {
+    console.log(`${user.username} valid: ${isValidUser(user)}`);
+  });
+// It is a function expression because it is assigned to a const variable instead of being declared with the function keyword alone.
+
 // ----------------------------------------------------------
 // TASK 3 — formatUserDisplay  [ARROW FUNCTION + TERNARY]
 // ----------------------------------------------------------
@@ -123,6 +152,8 @@ const users = [
 //   users.forEach(user => console.log(formatUserDisplay(user)));
 //
 // Write a comment: why is an arrow function a good fit here?
+
+
 
 // ----------------------------------------------------------
 // TASK 4 — getUserById  [FUNCTION DECLARATION + TERNARY]
