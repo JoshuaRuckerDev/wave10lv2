@@ -153,7 +153,12 @@ const isValidUser = function(user) {
 //
 // Write a comment: why is an arrow function a good fit here?
 
+const formatUserDisplay = user => `${user.username} | ${user.email} 
+| ${user.isPremium ? "⭐ Premium" : "Free"} | Age: ${user.age}`;
 
+users.forEach(user => console.log(formatUserDisplay(user)));
+
+// transforms one user object into one formated string
 
 // ----------------------------------------------------------
 // TASK 4 — getUserById  [FUNCTION DECLARATION + TERNARY]
@@ -167,6 +172,11 @@ const isValidUser = function(user) {
 //
 // Test with id 3 (should find Zoe) and id 99 (should return null).
 // Log both results.
+
+function getUserById(userList, id) {
+    userList.find(user => user.id === id)
+    return found ? found : null;
+}
 
 // ----------------------------------------------------------
 // TASK 5 — filterByAge  [FUNCTION EXPRESSION + DEFAULT PARAM]
