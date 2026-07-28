@@ -134,16 +134,17 @@ function formatJSON(value, depth) {
 // Now answer these questions as comments:
 
 // Q1: What is the URL you called? Write it here:
-// URL:
+// URL: https://jsonplaceholder.typicode.com/posts/1
 
 // Q2: What HTTP method did the browser use? (GET/POST/PUT/DELETE)
-// Method:
+// Method:GET
 
 // Q3: List the 4 properties in the response:
 // Properties:
+// userId, id, title, body
 
 // Q4: What data type is "userId"? What type is "title"?
-// Types:
+// Types: userId - Number & title - String
 
 // ============================================================
 // PART 3 — QUERY PARAMETERS
@@ -167,16 +168,19 @@ function formatJSON(value, depth) {
 // Write what changes as a comment next to each.
 
 // URL A: https://jsonplaceholder.typicode.com/posts
-// How many posts? Write it:
+// How many posts? Write it: 10
 
 // URL B: https://jsonplaceholder.typicode.com/posts?userId=1
-// How many posts now? What changed?
+// How many posts now? What changed? 10
 
 // URL C: https://jsonplaceholder.typicode.com/posts?userId=1&_limit=3
-// How many posts now? What did _limit do?
+// How many posts now? What did _limit do? Gave us back the first 3 posts for userId 1
 
 // URL D: https://jsonplaceholder.typicode.com/posts?_page=2&_limit=5
-// What posts appeared? What did _page do?
+// What posts appeared? What did _page do? checks the numbered page we indicate to get results back from it.
+
+// What seperates multiple params? & character
+// What does the & mean? It initiates or starts the query params.
 
 // Write a comment explaining in plain English what query params do:
 // Query params:
@@ -202,6 +206,20 @@ function formatJSON(value, depth) {
 // Below is a mock API response (a JSON string).
 // Parse it, then answer the questions by logging to the console.
 
+// apiData.data.user.name
+
+//    apiData
+//      └── data
+//            ├── user
+//            │     ├── id (42)
+//            │     ├── name ("Sofia Patel")
+//            │     ├── isPremium (true)
+//            │     └── tags ["developer", "mentor", "speaker"]
+//            └── posts
+//                  ├── [0] { id:1, title:..., likes:142 }
+//                  ├── [1] { id:2, title:..., likes:89 }
+//                  └── [2] { id:3, title:..., likes:203 }
+
 const mockResponse = `{
   "status": 200,
   "data": {
@@ -223,35 +241,66 @@ const mockResponse = `{
 // a) Parse mockResponse into a JavaScript object called apiData
 // const apiData = ...
 
+const apiData = JSON.parse(mockResponse);
+
 // b) Log the user's name
 // console.log(apiData...);
+
+console.log(apiData.data.user.name);
 
 // c) Log whether the user is premium
 // console.log(apiData...);
 
+console.log(apiData.data.user.isPremium);
+
 // d) Log the first tag in the tags array
 // console.log(apiData...);
+
+console.log(apiData.data.user.tags[0]);
 
 // e) Log the title of the second post
 // console.log(apiData...);
 
+console.log(apiData.data.posts[1].title);
+
 // f) Log the total number of posts
 // console.log(apiData...);
+
+console.log(apiData.data.posts.length);
 
 // TASK 4 — Loop through an API results array
 // Using apiData from Task 3:
 //
 // a) Use forEach to log each post in this format:
 //    "Post [id]: [title] — [likes] likes"
+
+apiData.data.posts.forEach((post) => {
+  console.log(`Post ${post.id}: ${post.title} - ${post.likes} likes`);
+});
+
 //
 // b) Use filter to find posts with more than 100 likes.
 //    Log how many there are.
+
+const moreThanHundred = apiData.data.posts.filter(
+  (element) => element.likes > 100,
+);
+
+console.log(moreThanHundred.length);
+
 //
 // c) Use find to get the post with id === 2.
 //    Log its title.
+
+const findTitle = apiData.data.posts.find((element) => element.id === 2);
+
+console.log(findTitle.title);
 //
 // d) Use map to create an array of just the post titles.
 //    Log the titles array.
+
+const newTitles = apiData.data.posts.map((element) => element.title);
+console.log(newTitles);
 
 // ============================================================
 // PART 5 — HTTP METHODS AND STATUS CODES
