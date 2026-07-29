@@ -311,19 +311,25 @@ console.log(newTitles);
 // Write your answers as comments.
 
 // Scenario A: Fetch a list of all products from a store.
-// Method:
+// Method: GET - fetching data.
 
 // Scenario B: Submit a new blog post.
-// Method:
+// Method: POST - creating a new post
 
 // Scenario C: Change a user's email address.
-// Method:
+// Method: PUT - Make a change or update an existing piece of info.
 
 // Scenario D: Delete a comment.
-// Method:
+// Method: DELETE - Removes a piece of info.
 
 // Scenario E: Search for products with ?q=laptop
-// Method:
+// Method: GET
+
+//GET
+//POST
+//PUT
+//PATCH
+//DELETE
 
 // TASK 6 — Decode the status code
 // For each status code, write what it means in plain English.
@@ -331,23 +337,23 @@ console.log(newTitles);
 
 // You try to fetch a post that was deleted:
 // Status code: 404
-// Meaning:
+// Meaning: Page not found / boken link / page moved elsewhere etc.
 
 // You try to access your bank account but your session expired:
 // Status code: 401
-// Meaning:
+// Meaning: Authentication token has timed out.
 
 // You successfully created a new user account:
 // Status code: 201
-// Meaning:
+// Meaning: Succesfully created a piece of data.
 
 // You sent a form with an empty required field:
 // Status code: 400
-// Meaning:
+// Meaning: Bad request. server rejected your data.
 
 // The server crashed because of a bug in their code:
 // Status code: 500
-// Meaning:
+// Meaning: Server error / bug in the server
 
 // ============================================================
 // PART 6 — READING API DOCUMENTATION
@@ -360,18 +366,18 @@ console.log(newTitles);
 //
 // Answer as comments:
 // Q1: What URL would you use to get ALL users?
-// URL:
+// URL: https://jsonplaceholder.typicode.com/users
 
 // Q2: What URL would you use to get user with ID 3?
-// URL:
+// URL: https://jsonplaceholder.typicode.com/users?id=3
 
 // Q3: What URL would you use to get all posts by user 2?
 //     (Hint: look for query parameter examples on the page)
-// URL:
+// URL: http://jsonplaceholder.typicode.com/posts?userId=2
 
 // Q4: What URL would you use to get the comments on post 5?
 //     (Hint: look for nested resource routes)
-// URL:
+// URL:http://jsonplaceholder.typicode.com/posts/5/comments
 
 // TASK 8 — Build a query string manually
 // Declare a function called buildQueryString.
@@ -386,9 +392,17 @@ console.log(newTitles);
 // then .join("&"), then prepend "?".
 
 function buildQueryString(paramsObject) {
-  // your code here
+  const pairs = Object.keys(paramsObject).map((key) => {
+    return key + "=" + paramsObject[key];
+  });
+
+  return "?" + pairs.join("&");
 }
 
+const paramsObject = {
+  userId: 1,
+  _limit: 5,
+}[("userId", "_limit")];
 // Test it:
 console.log(buildQueryString({ userId: 1, _limit: 5 }));
 // Expected: "?userId=1&_limit=5"
@@ -401,3 +415,29 @@ console.log(
   }),
 );
 // Expected: "?latitude=40.71&longitude=-74.01&current_weather=true"
+
+// This function takes object (paramsObject) and grabs all keys, then we are turning the keys into key=value string. Then put everthing together using & symbol and adding the ? symbol.
+
+// {
+// userId: 1,
+// _limit: 5
+
+// }
+
+// Object.keys(paramsObject)
+
+// ["userId", "_limit"]
+
+// .map()
+
+// ["userId=1", "_limi=5"
+
+// ]
+
+// .join("&")
+
+// "userId=1&_limit=5"
+
+// "?"
+
+// ?userId=1&_limit=5
