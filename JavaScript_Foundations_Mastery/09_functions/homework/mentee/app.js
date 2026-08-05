@@ -174,9 +174,12 @@ users.forEach(user => console.log(formatUserDisplay(user)));
 // Log both results.
 
 function getUserById(userList, id) {
-    userList.find(user => user.id === id)
+    const found = userList.find(user => user.id === id)
     return found ? found : null;
-}
+};
+
+console.log(getUserById(users, 3));
+console.log(getUserById(users, 99));
 
 // ----------------------------------------------------------
 // TASK 5 — filterByAge  [FUNCTION EXPRESSION + DEFAULT PARAM]
@@ -194,6 +197,25 @@ function getUserById(userList, id) {
 //   filterByAge(users, 13, 17)   → teens
 //
 // For each result, log the count and usernames using map.
+
+const filterByAge = function (userList, minAge, maxAge = 100) {
+    return userList.filter( user => 
+      user.age >= minAge && user.age <= maxAge);
+}
+
+const adults = filterByAge(users, 18);
+const youngAdults = filterByAge(users, 18, 25);
+const teens = filterByAge(users, 13, 17);
+
+console.log(adults.length);
+console.log(adults.map(user => user.username));
+
+console.log(youngAdults.length);
+console.log(youngAdults.map(user => user.username));
+
+console.log(teens.length);
+console.log(teens.map(user => user.username));
+
 
 // ----------------------------------------------------------
 // TASK 6 — getAccountStats  [FUNCTION DECLARATION]
