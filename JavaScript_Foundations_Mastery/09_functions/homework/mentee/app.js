@@ -241,6 +241,35 @@ console.log(teens.map(user => user.username));
 // Write a comment: what does passing isValidUser (without ())
 // to filter do differently than passing isValidUser()?
 
+function getAccountStats(userList) {
+    const totalUsers = userList.length;
+
+    const totalLogins = userList.reduce(
+      (acc, user) => acc + user.loginCount
+    ,0);
+
+    const premiumCount = userList.filter(user => user.isPremium).length;
+
+    const validCount = userList.filter(isValidUser).length;
+
+    const avgLogins = totalLogins / userList.length;
+
+    return {
+        totalUsers,
+        totalLogins,
+        premiumCount,
+        validCount,
+        avgLogins
+    };
+
+}
+
+console.log(getAccountStats(users));
+
+// Passing isValidUser (without ()) gives filter the function itself,
+// so filter calls it for every user. Using isValidUser() would call it
+// immediately instead of passing it as the callback.
+
 // ----------------------------------------------------------
 // TASK 7 — promoteUser  [ARROW FUNCTION]
 // ----------------------------------------------------------
