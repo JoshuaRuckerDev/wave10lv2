@@ -34,15 +34,59 @@ const LANG_COLORS = {
 // Copy your working version from the fetch project — unchanged.
 
 function createProfileCard(user) {
-  // your code here (same as fetch version)
-}
+  const displayName = user.name || user.login;
+  const bio = user.bio || "No bio yet - portfolios need one!";
 
+  const profileCard = document.createElement("div");
+
+  profileCard.innerHTML = `
+        <img src="${user.avatar_url}" alt="${displayName}" />
+        <h3>${displayName}</h3>
+        <p class="login">${user.login}</p>
+        <p class="bio">${bio}</p>
+        <p class="stats">
+          <span class="counter">${user.followers}</span> followers ·
+          <span class="counter">${user.following}</span> following ·
+          <span class="counter">${user.public_repos}</span> repos
+        </p>`;
+
+  return profileCard;
+}
 // TASK 2 — createRepoRow
 // Copy your working version — unchanged.
 // (LANG_COLORS dot, updated_at date, the two warn badges.)
 
 function createRepoRow(repo) {
-  // your code here (same as fetch version)
+  const language = repo.language || "Unknown";
+  const dotColor = LANG_COLORS[language] || "#a3a3a3";
+  const updated = new Date(repo.updated_at).toLocaleDateString();
+  const description = repo.description || "No description";
+
+  let badges = "";
+  if (!repo.description) {
+    badges += `<span class="warn-badge">no description</span>`;
+  }
+  if (!repo.homepage) {
+    badges += `<span class="warn-badge">no live link</span>`;
+  }
+
+  const li = document.createElement("li");
+  li.className = "repo-row";
+  li.innerHTML = `
+        <div class="repo-top">
+          <span class="repo-name">${repo.name}</span>
+          ${badges}
+        </div>
+        <p class="desc">${description}</p>
+        <div class="meta">
+          <span>
+            <span class="lang-dot" style="background:${dotColor}"></span>${language}
+          </span>
+          <span>Updated ${updated}</span>
+       </div>
+      `;
+
+  return li;
 }
 
 // TASK 3 — renderReport
@@ -50,7 +94,33 @@ function createRepoRow(repo) {
 // (Two .filter counts, three checks, the checks-box verdict.)
 
 function renderReport(repos) {
-  // your code here (same as fetch version)
+  const missingDesc = repos.filter((repo) => !repo.description).length;
+  const missingLink = repos.filter((repo) => !repo.homepage).length;
+
+  const hasEnoughRepos = repos.length >= 3;
+  const allDescribed = missingDesc === 0;
+  const allDeployed = missingLink === 0;
+
+  const isReady = hasEnoughRepos && allDescribed && allDeployed;
+
+  const portfolioReport = document.getElementById("portfolio-report");
+  portfolioReport.innerHTML = `
+  <div class="report">
+         <h3>Portfolio checks</h3>
+         <p class="check-item ${hasEnoughRepos ? "pass" : "fail"}">
+           ${hasEnoughRepos ? "✓" : "✗"} At least 3 public repos (${repos.length})
+          </p>
+          <p class="check-item ${allDescribed ? "pass" : "fail"}">
+            ${allDescribed ? "✓" : "✗"} Every repo has a description (${missingDesc} missing)
+          </p>
+          <p class="check-item ${allDeployed ? "pass" : "fail"}">
+            ${allDeployed ? "✓" : "✗"} Every repo has a live link (${missingLink} missing)
+          </p>
+          <p class="verdict ${isReady ? "ready" : "not-ready"}">
+            ${isReady ? "✓ All checks passed — portfolio-ready!" : "● Some checks failed — fix the ✗ items and re-run"}
+         </p>
+        </div>
+  `;
 }
 
 // TASK 4 — the fetches, rebuilt with async/await

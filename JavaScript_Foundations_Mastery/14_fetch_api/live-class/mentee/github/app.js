@@ -83,7 +83,7 @@ function createProfileCard(user) {
 
   const profileCard = document.createElement("div");
 
-  profileCard.innerHTML`
+  profileCard.innerHTML = `
         <img src="${user.avatar_url}" alt="${displayName}" />
         <h3>${displayName}</h3>
         <p class="login">${user.login}</p>
@@ -135,7 +135,7 @@ function createProfileCard(user) {
 function createRepoRow(repo) {
   const language = repo.language || "Unknown";
   const dotColor = LANG_COLORS[language] || "#a3a3a3";
-  const udpated = new Date(repo.updated_at).toLocaleDateString();
+  const updated = new Date(repo.updated_at).toLocaleDateString();
   const description = repo.description || "No description";
 
   let badges = "";
@@ -205,10 +205,10 @@ function renderReport(repos) {
   const allDescribed = missingDesc === 0;
   const allDeployed = missingLink === 0;
 
-  const isReady = hasEnoughRpos && allDescribed && allDeployed;
+  const isReady = hasEnoughRepos && allDescribed && allDeployed;
 
   const portfolioReport = document.getElementById("portfolio-report");
-  portfolioReport.innerHTML`
+  portfolioReport.innerHTML = `
   <div class="report">
          <h3>Portfolio checks</h3>
          <p class="check-item ${hasEnoughRepos ? "pass" : "fail"}">
@@ -310,7 +310,7 @@ function checkProfile() {
   fetch(`https://api.github.com/users/${username}`)
     .then((response) => {
       if (response.status === 404) {
-        throw new Error(`No GitHub user called "${username}`);
+        throw new Error(`No GitHub user called "${username}"`);
       }
       if (response.status === 403) {
         throw new Error("Rate limit hit (60/hour per IP) -wait a bit");
@@ -332,7 +332,7 @@ function checkProfile() {
 
     .catch((error) => {
       statusEl.textContent = `❌ ${error.message}`;
-      statusEl.className = "status error";
+      statusEl.className = "status loading";
     });
 }
 
@@ -340,9 +340,14 @@ function checkProfile() {
 // handleGithubSubmit(event) → preventDefault + checkProfile()
 // Wire it to #github-form's submit event.
 
-function handleGithubSubmit(event) {}
+function handleGithubSubmit(event) {
+  event.preventDefault();
+  checkProfile();
+}
 
-// wire up the form listener here
+document
+  .getElementById("github-form")
+  .addEventListener("submit", handleGithubSubmit);
 
 // ----------------------------------------------------------
 // ⭐ STRETCH GOAL — the language breakdown
@@ -353,6 +358,26 @@ function handleGithubSubmit(event) {}
 // gives you the non-null languages. Count them with a forEach
 // into an object: counts[lang] = (counts[lang] || 0) + 1
 // — bracket notation with a variable key, again.
+
+function renderLanguageBreakdown(repos) {
+  const counts = {};
+  repos
+    .map((repo) => repo.language)
+    .filter(Boolean)
+    .forEach((lang) => {
+      counts[lang] = counts[lang] || 0 + 1;
+    });
+
+  const parts = [];
+  for (const lang in counts) {
+    parts.push(`${lang} ${counts[lang]}`);
+  }
+
+  const paragraph = document.createElement("p");
+  paragraph.className = "status";
+  paragraph.textContent = parts.join(" . ");
+  document.getElementById("portfolio-report").appendChild(paragraph);
+}
 
 // ============================================================
 // 📝 WHAT THIS PROJECT DRILLED
