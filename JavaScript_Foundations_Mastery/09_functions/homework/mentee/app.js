@@ -286,6 +286,22 @@ console.log(getAccountStats(users));
 // arrow function affect the original object?
 // (Hint: objects vs primitives — pass by reference vs value)
 
+const promoteUser = user => {
+  user.isPremium = true;
+  return user;
+}
+
+const userToPromote = getUserById(users, 2);
+
+console.log("Before:", userToPromote);
+
+promoteUser(userToPromote);
+
+console.log("After:", userToPromote);
+
+// Objects are passed by reference, so changing user.isPremium
+// also changes the original user object in the users array.
+
 // ----------------------------------------------------------
 // TASK 8 — processAccounts  [FUNCTION DECLARATION composing all styles]
 // ----------------------------------------------------------
