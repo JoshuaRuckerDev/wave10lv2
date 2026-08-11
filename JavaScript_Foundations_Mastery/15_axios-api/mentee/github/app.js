@@ -164,18 +164,75 @@ function renderReport(repos) {
 // statements go? Write the answer as a comment.
 
 async function fetchRepos(username) {
-  // your code here
+  try {
+    const response = await axios.get(
+      `https://api.github.com/users/${username}/repos?sort=updated&per_page=10`,
+    );
+
+    renderReport(response.data);
+
+    const listElement = document.getElementById("repo-list");
+    listElement.innerHTML = "";
+    response.data.forEach((repo) => {
+      listElement.appendChild(createRepoRow(repo));
+    });
+  } catch (error) {
+    const statusElement = document.getElementById("github-status");
+    statusElement.textContent = "❌ Couldn't load repos";
+    statusElement.className = "status error";
+  }
 }
 
 async function checkProfile() {
-  // your code here
+  const username = document.getElementById("username-input").value.trim();
+  const statusElement = document.getElementById("github-status");
+
+  if (username === "") {
+    return;
+  }
+
+  try {
+    statusElement.textContent = "Checking profile...";
+    statusElement.className = "status loading";
+
+    document.getElementById("profile-card").innerHTML = "";
+    document.getElementById("portfolio-report").innerHTML = "";
+    document.getElementById("repo-list").innerHTML = "";
+
+    const response = await axios.get(
+      `https://api.github.com/users/${username}`,
+    );
+
+    statusElement.textContent = `✓ Found ${response.data.login}`;
+    statusElement.className = " status success";
+    document
+      .getElementById("profile-card")
+      .appendChild(createProfileCard(response.data));
+
+    await fetchRepos(username);
+  } catch (error) {
+    if (error.response && error.response.status === 404) {
+      `❌ No Github user called "${username}"`;
+    } else if (error.response && error.response.status === 403) {
+      ("❌ Rate limit hit (68/hour per IP) - wait a bit");
+    } else if (error.response) {
+      `❌ Request failed: ${error.response.status}`;
+    }
+    `❌ Network error: ${error.message}`;
+    statusElement.className = "status error";
+  }
 }
 
 // TASK 5 — wire up the form (same as fetch — unchanged)
 
 function handleGithubSubmit(event) {
-  // your code here (same as fetch version)
+  event.preventDefault();
+  checkProfile();
 }
+
+document
+  .getElementById("github-form")
+  .addEventListener("submit", handleGithubSubmit);
 
 // wire up the form listener here
 
