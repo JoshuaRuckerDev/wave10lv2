@@ -323,6 +323,31 @@ console.log("After:", userToPromote);
 // Call processAccounts(users). Log the result.
 // forEach through result.displayList logging each line.
 
+function processAccounts(userList) {
+    const validUsers = userList.filter(isValidUser);
+    const adultUsers = filterByAge(validUsers, 18);
+    
+    const displayList = adultUsers.map(function(user) {
+      return formatUserDisplay(user);
+    });
+
+    const stats = getAccountStats(userList);
+
+    return {
+      displayList,
+      stats,
+      skipped: userList.length - validUsers.length
+      };
+}
+
+    const result = processAccounts(users);
+
+    console.log(result);
+
+    result.displayList.forEach(function(line) {
+      console.log(line);
+    });
+
 // ----------------------------------------------------------
 // ⭐ STRETCH GOAL — searchUsers  [FUNCTION EXPRESSION]
 // ----------------------------------------------------------
@@ -338,3 +363,16 @@ console.log("After:", userToPromote);
 //   searchUsers(users, "a")               → all with "a" in username
 //
 // Write a comment: why must you use u[field] instead of u.field?
+
+const searchUsers = function (userList, query, field = "username") {
+    return userList.filter(u => u[field].includes(query)); 
+}
+
+console.log(searchUsers(users, "dev"));
+
+console.log(searchUsers(users, "email.com", "email"));
+
+console.log(searchUsers(users, "a"));
+
+// We use u[field] because field is a variable that can change.
+// u.field would only look for a property literally named "field".

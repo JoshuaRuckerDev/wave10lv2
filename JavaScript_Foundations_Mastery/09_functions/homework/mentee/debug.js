@@ -9,17 +9,29 @@
 // This arrow function should return the full name
 // but always returns undefined. What's wrong?
 
-const getFullName = (first, last) => {
-  first + " " + last;
+/*const getFullName = (first, last) => {
+ return first + " " + last;
 };
 
-console.log(getFullName("Alex", "Rivera"));
+console.log(getFullName("Alex", "Rivera"));*/
 
 // What's wrong ↓
+
+// no return in function body
 
 // Your fix — write TWO versions:
 //   a) Fix by adding return inside the braces
 //   b) Fix by removing the braces (one-liner implicit return)
+
+/* const getFullName = (first, last) => {
+ return first + " " + last;
+};
+
+console.log(getFullName("Alex", "Rivera"));*/
+
+const getFullName = (first, last) => first + " " + last;
+
+console.log(getFullName("Alex", "Rivera"));
 
 
 // ----------------------------------------------------------
@@ -45,10 +57,35 @@ console.log(getRoleLabel("member"));  // undefined ❌
 
 // What's wrong ↓
 
+// The mod and member branches are missing return statements.
+
 // Your fix ↓
+
+/* function getRoleLabel(role) {
+  if (role === "admin") {
+    return "Admin";
+  } else if (role === "mod") {
+    return "Moderator";
+  } else {
+    return "Member";
+  }
+}*/
 // Bonus: rewrite the whole function as an arrow function
 // using nested ternaries (just to see what it looks like —
 // then write a comment about whether you'd actually use it).
+
+const getRoleLabelArrow = role => 
+  role === "admin"
+  ? "Admin"
+  : role === "mod"
+  ? "Moderator"
+  : "Member";
+
+console.log(getRoleLabelArrow("admin"));   
+console.log(getRoleLabelArrow("mod"));     
+console.log(getRoleLabelArrow("member"));  
+
+  // no I wouldnt not use it bc if / else is easier to read 
 
 
 // ----------------------------------------------------------
@@ -68,6 +105,17 @@ console.log(applyDiscount(50));       // expected: 45
 
 // Bug 1 (math) ↓
 
+// discountPercent needs to be divided by 100 to convert it to a decimal.
+// The discount amount also needs to be subtracted from the price.
+
 // Bug 2 (style) ↓
 
+// Since the arrow function only returns one expression,
+// it can use a one-line implicit return.
+
 // Your fix ↓
+const applyDiscount = (price, discountPercent = 10) =>
+  price - price * (discountPercent / 100);
+
+console.log(applyDiscount(100, 20)); // 80
+console.log(applyDiscount(50));      // 45
