@@ -92,8 +92,13 @@ const boardName = "Sprint 12 — Task Board";
 // Call renderHeader(tasks) at the bottom.
 
 function renderHeader(taskList) {
-  // your code here
+  const boardTitle = document.getElementById("board-title");
+  boardTitle.textContent = boardName;
+
+  const taskCount = document.getElementById("task-count");
+  taskCount.textContent = taskList.length + " tasks";
 }
+renderHeader(tasks);
 
 // ----------------------------------------------------------
 // TASK 2 — createTaskCard  (returns a DOM element)
@@ -125,7 +130,39 @@ function renderHeader(taskList) {
 // Task 3 will handle placing it in the right column.
 
 function createTaskCard(task) {
-  // your code here
+  const taskCard = document.createElement('li');
+  taskCard.classList.add('task-card');
+
+  const taskTitle = document.createElement('p');
+  taskTitle.classList.add('task-title');
+  taskTitle.textContent = task.title;
+
+  const meta = document.createElement('div');
+  meta.classList.add('task-meta');
+  
+  const prioritySpan = document.createElement('span');
+  prioritySpan.textContent = task.priority.toUpperCase();
+  prioritySpan.classList.add('priority-' + task.priority);
+
+  const assigneeSpan = document.createElement('span');
+  assigneeSpan.textContent = "👤 " + task.assignee;
+  meta.appendChild(prioritySpan);
+  meta.appendChild(assigneeSpan);
+
+  taskCard.appendChild(taskTitle);
+  taskCard.appendChild(meta);
+
+  
+
+  if (task.status === "done") {
+    taskCard.classList.add("completed");
+  } 
+  
+  return taskCard;
+
+  
+//
+
 }
 
 // ----------------------------------------------------------
@@ -148,8 +185,30 @@ function createTaskCard(task) {
 // Call renderBoard(tasks) at the bottom.
 
 function renderBoard(taskList) {
-  // your code here
-}
+  const todoList = document.getElementById('list-todo');
+  const inProgressList = document.getElementById('list-inprogress');
+  const doneList = document.getElementById('list-done');
+
+  taskList.forEach(task => {
+    const card = createTaskCard(task);
+  
+
+  if (task.status === "todo") {
+    todoList.appendChild(card);
+  } else if (task.status === "inprogress") {
+    inProgressList.appendChild(card);
+  } else if (task.status === "done") 
+    doneList.appendChild(card);
+
+  
+  });
+
+
+  }
+
+  
+
+  renderBoard(tasks);
 
 // ----------------------------------------------------------
 // TASK 4 — updateCounts
