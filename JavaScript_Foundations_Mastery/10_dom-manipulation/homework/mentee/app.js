@@ -228,8 +228,21 @@ function renderBoard(taskList) {
 // Call updateCounts(tasks) at the bottom.
 
 function updateCounts(taskList) {
-  // your code here
-}
+  const completedTasks = taskList.filter(task => {
+    return task.status === "done";
+  });
+
+  const pendingTasks = taskList.filter(task => {
+    return task.status !== "done";
+  });
+
+  const completedCount = document.getElementById('completed-count');
+  completedCount.textContent = "✅ " + completedTasks.length + " done";
+
+  const pendingCount = document.getElementById('pending-count');
+  pendingCount.textContent = "⏳ " + pendingTasks.length + " pending";
+  }
+updateCounts(tasks);
 
 // ----------------------------------------------------------
 // TASK 5 — addRemoveButtons
