@@ -98,7 +98,7 @@ function renderHeader(taskList) {
   const taskCount = document.getElementById("task-count");
   taskCount.textContent = taskList.length + " tasks";
 }
-renderHeader(tasks);
+//renderHeader(tasks);
 
 // ----------------------------------------------------------
 // TASK 2 — createTaskCard  (returns a DOM element)
@@ -132,6 +132,7 @@ renderHeader(tasks);
 function createTaskCard(task) {
   const taskCard = document.createElement('li');
   taskCard.classList.add('task-card');
+  taskCard.dataset.id = task.id;
 
   const taskTitle = document.createElement('p');
   taskTitle.classList.add('task-title');
@@ -208,7 +209,7 @@ function renderBoard(taskList) {
 
   
 
-  renderBoard(tasks);
+  //renderBoard(tasks);
 
 // ----------------------------------------------------------
 // TASK 4 — updateCounts
@@ -242,7 +243,7 @@ function updateCounts(taskList) {
   const pendingCount = document.getElementById('pending-count');
   pendingCount.textContent = "⏳ " + pendingTasks.length + " pending";
   }
-updateCounts(tasks);
+//updateCounts(tasks);
 
 // ----------------------------------------------------------
 // TASK 5 — addRemoveButtons
@@ -262,8 +263,17 @@ updateCounts(tasks);
 // For now just build and attach the buttons so they appear.
 
 function addRemoveButtons() {
-  // your code here
+  const taskCard = document.querySelectorAll(".task-card");
+
+  taskCard.forEach(card => {
+    const removeBtn = document.createElement('button');
+    removeBtn.classList.add("remove-btn");
+    removeBtn.textContent = "✕";
+
+    card.appendChild(removeBtn);
+  });
 }
+//addRemoveButtons();
 
 // ----------------------------------------------------------
 // TASK 6 — highlightHighPriority
@@ -280,8 +290,14 @@ function addRemoveButtons() {
 // This makes high-priority labels appear bolder.
 
 function highlightHighPriority() {
-  // your code here
+  const priorityHigh = document.querySelectorAll(".priority-high");
+
+  priorityHigh.forEach(card => {
+     card.style.fontWeight = "800";
+  });
 }
+
+//highlightHighPriority();
 
 // ----------------------------------------------------------
 // TASK 7 — addNewTask  (createElement full workflow)
@@ -301,8 +317,24 @@ function highlightHighPriority() {
 // Watch a new card appear in the To Do column.
 
 function addNewTask(title, assignee, priority = "medium", status = "todo") {
-  // your code here
+  const newTask = {
+    id: Date.now(),
+        title,
+        assignee,
+        priority,
+        status
+  }
+    tasks.push(newTask);
+    const card = createTaskCard(newTask);
+
+    const todoList = document.getElementById("list-todo")
+    todoList.appendChild(card);
+
+    updateCounts(tasks);
+    
 }
+
+addNewTask("Write unit tests", "Carlos", "high");
 
 // ----------------------------------------------------------
 // TASK 8 — Connect the dots: renderAll
@@ -321,8 +353,15 @@ function addNewTask(title, assignee, priority = "medium", status = "todo") {
 // each function individually.
 
 function renderAll() {
-  // your code here
+  renderHeader(tasks);
+  renderBoard(tasks);
+  updateCounts(tasks);
+  addRemoveButtons();
+  highlightHighPriority();
 }
+
+renderAll();
+
 
 // ----------------------------------------------------------
 // ⭐ STRETCH GOAL — markComplete
@@ -348,5 +387,27 @@ function renderAll() {
 // Write a comment: what is dataset used for?
 
 // ============================================================
-// CALL YOUR FUNCTIONS HERE
+function markComplete(taskId) {
+
+  const found = tasks.find(task => task.id === taskId);
+
+  if (found) {
+    found.status = "done";
+  }
+
+  const taskCard = document.querySelector("[data-id='" + taskId + "']");
+  const doneList = document.getElementById("list-done");
+
+  if (taskCard) {
+    taskCard.classList.add("completed");
+    doneList.appendChild(taskCard);
+
+  }
+  updateCounts(tasks);
+}
+
+markComplete(1);
+
+/* dataset stores custom data attributes on DOM elements so we can connect
+ an HTML element to related JavaScript data, such as matching a card to a task id.*/
 // ============================================================
