@@ -23,8 +23,11 @@ document.getElementById("add-task-btn")
 
 // What's wrong ↓
 
-// Your fix ↓
+// logTitle() calls the function immediately instead of waiting for the click.
 
+// Your fix ↓
+document.getElementById("add-task-btn")
+  .addEventListener("click", logTitle);
 
 // ----------------------------------------------------------
 // 🟡 DEBUG 2 — Medium
@@ -51,8 +54,14 @@ document.querySelector(".header-right")
 
 // What's wrong ↓
 
-// Your fix ↓
+// The condition uses !==, so cards that don't match the filter are shown.
 
+// Your fix ↓
+if (card.dataset.priority === filter) {
+  card.classList.remove("hidden");
+} else {
+  card.classList.add("hidden");
+}
 
 // ----------------------------------------------------------
 // 🔴 DEBUG 3 — Hard
@@ -74,7 +83,23 @@ document.querySelector(".board")
   .addEventListener("click", handleBoardClick);
 
 // Bug 1 ↓
-
+// taskId from dataset is a string, but task ids are numbers.
 // Bug 2 ↓
-
+// The card is removed from the DOM, but the task is never removed from the tasks array.
 // Your fix ↓
+function handleBoardClick(event) {
+  const card = event.target.closest(".task-card");
+
+  if (!card) {
+    return;
+  }
+
+  const taskId = parseInt(card.dataset.id);
+
+  if (event.target.classList.contains("remove-btn")) {
+    const index = tasks.findIndex(task => task.id === taskId);
+
+    tasks.splice(index, 1);
+    card.remove();
+  }
+}
