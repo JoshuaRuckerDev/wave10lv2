@@ -77,7 +77,13 @@ let tasks = [];
 // This function will be called after EVERY change.
 
 function saveTasks() {
-  // your code here
+  localStorage.setItem("taskBoardData", JSON.stringify(tasks));
+  const saveIndicator = document.getElementById("save-indicator");
+  saveIndicator.classList.add("visible");
+  setTimeout(function() {
+    saveIndicator.classList.remove("visible");
+  }, 1500);
+  
 }
 
 // ----------------------------------------------------------
@@ -100,9 +106,16 @@ function saveTasks() {
 // ⚠️  Always check for null before parsing.
 
 function loadTasks() {
-  // your code here
-}
+  const raw = localStorage.getItem("taskBoardData");
 
+  if (raw === null) {
+    tasks = [...defaultTasks];
+    saveTasks();
+    return;
+  }
+    tasks = JSON.parse(raw);
+}
+   
 // ----------------------------------------------------------
 // TASK 3 — createTaskCard (returns a DOM element)
 // ----------------------------------------------------------
@@ -121,7 +134,29 @@ function loadTasks() {
 // Return the <li> — do NOT append it here.
 
 function createTaskCard(task) {
-  // your code here
+  const li = document.createElement("li");
+
+  li.className = "task-card";
+  li.dataset.id = task.id;
+  li.dataset.priority = task.priority;
+
+  li.innerHTML = `
+    <p class="task-title">${task.title}</p>
+    <div class="task-meta">
+      <span>${task.priority}</span>
+      <span>${task.assignee || "Unassigned"}</span>
+    </div>
+    <div class="card-actions">
+      <button class="complete-btn">Complete</button>
+      <button class="remove-btn">Remove</button>
+    </div>
+  `;
+
+  if (task.status === "done") {
+    li.classList.add("completed");
+  }
+
+  return li;
 }
 
 // ----------------------------------------------------------
@@ -141,13 +176,57 @@ function createTaskCard(task) {
 // Update all six count elements using the tasks array.
 // (Same as Event Listeners homework)
 
-function updateCounts() {
-  // your code here
+function renderBoard() {
+  const todoList = document.getElementById("list-todo");
+  const inProgressList = document.getElementById("list-inprogress");
+  const doneList = document.getElementById("list-done");
+
+  todoList.innerHTML = "";
+  inProgressList.innerHTML = "";
+  doneList.innerHTML = "";
+
+  tasks.forEach(task => {
+    const taskCard = createTaskCard(task);
+
+    if (task.status === "todo") {
+      todoList.appendChild(taskCard);
+    } else if (task.status === "inprogress") {
+      inProgressList.appendChild(taskCard);
+    } else if (task.status === "done") {
+      doneList.appendChild(taskCard);
+    }
+  });
+
+  updateCounts();
 }
 
-function renderBoard() {
-  // your code here
+function updateCounts() {
+  const done = tasks.filter(task => task.status === "done");
+  const pending = tasks.filter(task => task.status !== "done");
+  const todo = tasks.filter(task => task.status === "todo");
+  const inprogress = tasks.filter(task => task.status === "inprogress");
+
+  document.getElementById("task-count").textContent =
+    tasks.length + " tasks";
+
+  document.getElementById("completed-count").textContent =
+    "✅ " + done.length + " done";
+
+  document.getElementById("pending-count").textContent =
+    "⌛ " + pending.length + " pending";
+
+  document.getElementById("count-todo").textContent =
+    todo.length;
+
+  document.getElementById("count-inprogress").textContent =
+    inprogress.length;
+
+  document.getElementById("count-done").textContent =
+    done.length;
 }
+
+
+
 
 // ----------------------------------------------------------
 // TASK 5 — handleAddTask
@@ -168,7 +247,41 @@ function renderBoard() {
 //     .addEventListener("click", handleAddTask)
 
 function handleAddTask() {
-  // your code here
+  const taskTitle = document
+    .getElementById("task-title-input")
+    .value.trim();
+
+  const taskAssignee = document
+    .getElementById("task-assignee-input")
+    .value.trim();
+
+  const taskPriority = document
+    .getElementById("task-priority-input")
+    .value;
+
+  const taskStatus = document
+    .getElementById("task-status-input")
+    .value;
+
+  if (taskTitle === "") {
+    return;
+  }
+
+  const newTask = {
+    id: Date.now(),
+    title: taskTitle,
+    assignee: taskAssignee || "Unassigned",
+    priority: taskPriority,
+    status: taskStatus
+  };
+
+  tasks.push(newTask);
+
+  saveTasks();
+  renderBoard();
+
+  document.getElementById("task-title-input").value = "";
+  document.getElementById("task-assignee-input").value = "";
 }
 
 document
@@ -200,7 +313,28 @@ document
 // Wire it up to document.querySelector(".board")
 
 function handleBoardClick(event) {
-  // your code here
+  const card = event.target.closest(".task-card");
+
+  if (!card) {
+    return;
+  }
+
+  const taskId = parseInt(card.dataset.id);
+  const task = tasks.find(task => task.id === taskId);
+
+  if (event.target.classList.contains("complete-btn")) {
+    task.status = "done";
+    saveTasks();
+    renderBoard();
+  }
+
+  if (event.target.classList.contains("remove-btn")) {
+    const index = tasks.findIndex(task => task.id === taskId);
+
+    tasks.splice(index, 1);
+    saveTasks();
+    renderBoard();
+  }
 }
 
 document.querySelector(".board").addEventListener("click", handleBoardClick);
@@ -223,10 +357,22 @@ document.querySelector(".board").addEventListener("click", handleBoardClick);
 //     .addEventListener("click", handleClearAll)
 
 function handleClearAll() {
-  // your code here
+  if (!confirm("Clear all tasks? This cannot be undone.")) {
+    return;
+  }
+
+  localStorage.removeItem("taskBoardData");
+
+  tasks = [...defaultTasks];
+
+  saveTasks();
+
+  renderBoard();
 }
 
-document.getElementById("clear-btn").addEventListener("click", handleClearAll);
+document
+  .getElementById("clear-btn")
+  .addEventListener("click", handleClearAll);
 
 // ----------------------------------------------------------
 // TASK 8 — init
@@ -239,8 +385,11 @@ document.getElementById("clear-btn").addEventListener("click", handleClearAll);
 // Call init() at the bottom.
 
 function init() {
-  // your code here
+  loadTasks();
+  renderBoard();
 }
+
+init();
 
 // ----------------------------------------------------------
 // ⭐ STRETCH GOAL — persist filter preference

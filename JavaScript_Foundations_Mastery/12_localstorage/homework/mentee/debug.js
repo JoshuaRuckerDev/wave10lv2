@@ -23,9 +23,11 @@ console.log(tasks.length);   // logs a large number — wrong
 console.log(tasks[0]);       // logs "{" — wrong, expected an object
 
 // What's wrong ↓
-
+// localStorage returns a string, so the saved JSON needs to be parsed back into an array.
 // Your fix ↓
-
+const fixedTasks = JSON.parse(localStorage.getItem("tasks"));
+console.log(fixedTasks.length);
+console.log(fixedTasks[0]);
 
 // ----------------------------------------------------------
 // 🟡 DEBUG 2 — Medium
@@ -55,8 +57,13 @@ function saveBoardState(taskList) {
 
 // What's wrong ↓
 
-// Your fix — conceptual explanation is enough here ↓
+// Heavy DOM work immediately after saveBoardState() can block the browser
+// from repainting the indicator before the "visible" class is removed.
 
+// Your fix — conceptual explanation is enough here ↓
+// Allow the browser a chance to repaint after adding "visible",
+// such as using requestAnimationFrame or moving the heavy DOM work
+// so the indicator can render before it is removed.
 
 // ----------------------------------------------------------
 // 🔴 DEBUG 3 — Hard
@@ -89,7 +96,26 @@ loadAndRender();
 loadAndRender(); // called again — what happens?
 
 // Bug 1 (crash on first load) ↓
-
+// JSON.parse(raw) can fail when raw is null because nothing has been saved yet.
 // Bug 2 (duplicates) ↓
-
+// The list is never cleared before rendering, so calling loadAndRender()
+// again appends duplicate task elements.
 // Your fix ↓
+function loadAndRender() {
+  const raw = localStorage.getItem("boardTasks");
+
+  if (raw === null) {
+    taskList = [];
+  } else {
+    taskList = JSON.parse(raw);
+  }
+
+  const todoList = document.getElementById("list-todo");
+  todoList.innerHTML = "";
+
+  taskList.forEach(function(task) {
+    const li = document.createElement("li");
+    li.textContent = task.title;
+    todoList.appendChild(li);
+  });
+}
